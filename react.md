@@ -22,6 +22,8 @@ class Header extends Component{
 export default Header;
 ```
 2. React-router
+* use <BrowserRouter> when you have a server that will handle dynamic requests
+* use <Route> component to render content based on the location’s pathname
 ```javascript
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
