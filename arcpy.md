@@ -95,5 +95,6 @@ with arcpy.da.UpdateCursor("Parcel", ["SHAPE@AREA", "ACRES"]) as cursor:
         row[1] = geom / 43560
         # update current row to GDB
         cursor.updateRow(row)
- print ("Script completed")
+
+print ("Script completed")
 ```
