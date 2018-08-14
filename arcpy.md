@@ -33,9 +33,10 @@ print ("Script completed")
 ##### Lesson 03: Automating Scripts with Lists
 ```python
 import arcpy
-arcpy.env.workspace = r"C:/EsriTraining/PYTH/Automate/SanDiego.gdb"
+arcpy.env.workspace = r"C:\EsriTraining\PYTH\Automate\SanDiego.gdb"
 
 fc_list = arcpy.ListFeatureClasses()
+# fc_list = [u'Climate', u'Freeways', u'MajorAttractions', u'Ocean', u'Railroads', u'Streams', u'Zipcodes', u'Rail100']
 
 for featClass in fc_list:
     desc = arcpy.Describe(featClass)
