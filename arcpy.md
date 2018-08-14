@@ -14,14 +14,17 @@ print("Shape: {}".format(desc.shapeType))
 print("Type: {}".format(desc.datasetType))
 print("Name: {} Shape: {} Type: {}".format(desc.name, desc.shapeType, desc.datasetType))
 
-# desc.fields =[<geoprocessing describe field object object at 0x069231D0>, 
+# desc.fields = [<geoprocessing describe field object object at 0x069231D0>, 
 # <geoprocessing describe field object object at 0x069233C8>, 
 # <geoprocessing describe field object object at 0x06923CB0>]
-# http://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-classes/field.htm
+# https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-classes/field.htm
+
 print ("Field names")
 for field in desc.fields:
     print ("\t{}".format(field.name))
 
+# https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-functions/workspace-properties.htm
+# https://pro.arcgis.com/en/pro-app/arcpy/functions/workspace-properties.htm
 descGDB = arcpy.Describe(arcpy.env.workspace)
 print ("GDB Type: {} Release: {} Path: {}".format(descGDB.workspaceType, descGDB.release, descGDB.path))
 
