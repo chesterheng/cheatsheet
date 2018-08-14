@@ -110,5 +110,10 @@ with arcpy.da.InsertCursor("CountyPNT", ["NAME", "SHAPE@XY"]) as cursor:
     for row in rowValues:
         cursor.insertRow(row)
 
+cursor = arcpy.da.InsertCursor("CountyPNT", ["NAME", "SHAPE@XY"])
+for row in rowValues
+    cursor.insertRow(row)
+del cursor
+        
 print ("Script completed")
 ```
