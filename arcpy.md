@@ -6,13 +6,17 @@ arcpy.env.workspace = r"C:\EsriTraining\PYTH\Describe\Corvallis.gdb"
 
 # Describe function returns a Describe object, with multiple properties, such as data type, fields, indexes, and many others.
 # Describe object: desc
-[ArcMap](https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-functions/describe.htm)
-[ArcGIS Pro](https://pro.arcgis.com/en/pro-app/arcpy/functions/describe.htm)
+# [ArcMap](https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-functions/describe.htm)
+# [ArcGIS Pro](https://pro.arcgis.com/en/pro-app/arcpy/functions/describe.htm)
 desc = arcpy.Describe('Schools')
 print("Name: {}".format(desc.name))
 print("Shape: {}".format(desc.shapeType))
 print("Type: {}".format(desc.datasetType))
 print("Name: {} Shape: {} Type: {}".format(desc.name, desc.shapeType, desc.datasetType))
+
+# desc.fields =[<geoprocessing describe field object object at 0x069231D0>, 
+# <geoprocessing describe field object object at 0x069233C8>, 
+# <geoprocessing describe field object object at 0x06923CB0>]
 
 print ("Field names")
 for field in desc.fields:
