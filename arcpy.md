@@ -68,6 +68,8 @@ arcpy.SelectLayerByLocation_management("HistoricLyr", "COMPLETELY_WITHIN", "Mari
 # Count number of features
 featCount = arcpy.GetCount_management("HistoricLyr")
 print ("Number of historic features selected: {}".format(featCount))
+
+print ("Script completed")
 ```
 ##### Lesson 05 Working with Cursors
 ###### SearchCursor
@@ -80,4 +82,6 @@ fields = ["NAME", "ADDR", "CITYNM", "ZIP"]
 with arcpy.da.SearchCursor(fc, fields) as cursor:
     for row in cursor:
         print ("{0}\n{1}\n{2}, CA {3}\n".format(row[0], row[1], row[2], row[3]))
+
+print ("Script completed")
 ```
