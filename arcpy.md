@@ -72,7 +72,7 @@ print ("Number of historic features selected: {}".format(featCount))
 print ("Script completed")
 ```
 ##### Lesson 05 Working with Cursors
-###### SearchCursor
+###### Search Cursor
 ```python
 import arcpy
 arcpy.env.workspace = "C:\EsriTraining\PYTH\Cursors\SanDiego.gdb"
@@ -84,4 +84,13 @@ with arcpy.da.SearchCursor(fc, fields) as cursor:
         print ("{0}\n{1}\n{2}, CA {3}\n".format(row[0], row[1], row[2], row[3]))
 
 print ("Script completed")
+```
+###### Update Cursor
+```python
+with arcpy.da.UpdateCursor("Parcel", ["SHAPE@AREA", "ACRES"]) as cursor:
+ for row in cursor:
+    geom = row[0]
+    row[1] = geom / 43560
+    cursor.updateRow(row)
+ print ("Script completed")
 ```
