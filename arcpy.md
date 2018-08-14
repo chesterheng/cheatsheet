@@ -6,8 +6,8 @@ arcpy.env.workspace = r"C:\EsriTraining\PYTH\Describe\Corvallis.gdb"
 
 # Describe function returns a Describe object, with multiple properties, such as data type, fields, indexes, and many others.
 # Describe object: desc
-# [ArcMap](https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-functions/describe.htm)
-# [ArcGIS Pro](https://pro.arcgis.com/en/pro-app/arcpy/functions/describe.htm)
+[ArcMap](https://desktop.arcgis.com/en/arcmap/latest/analyze/arcpy-functions/describe.htm)
+[ArcGIS Pro](https://pro.arcgis.com/en/pro-app/arcpy/functions/describe.htm)
 desc = arcpy.Describe('Schools')
 print("Name: {}".format(desc.name))
 print("Shape: {}".format(desc.shapeType))
