@@ -88,9 +88,12 @@ print ("Script completed")
 ###### Update Cursor
 ```python
 with arcpy.da.UpdateCursor("Parcel", ["SHAPE@AREA", "ACRES"]) as cursor:
- for row in cursor:
-    geom = row[0]
-    row[1] = geom / 43560
-    cursor.updateRow(row)
+    for row in cursor:
+        # read data from column 0
+        geom = row[0]
+        # update changes to column 1
+        row[1] = geom / 43560
+        # update current row to GDB
+        cursor.updateRow(row)
  print ("Script completed")
 ```
