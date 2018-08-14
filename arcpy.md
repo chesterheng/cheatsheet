@@ -98,3 +98,17 @@ with arcpy.da.UpdateCursor("Parcel", ["SHAPE@AREA", "ACRES"]) as cursor:
 
 print ("Script completed")
 ```
+###### Insert Cursor
+```python
+rowValues = [
+["Benton", (-123.40, 44.49)], 
+["Linn", (-122.49, 44.48)],
+["Polk", (-123.38, 44.89)], 
+["Tillamook", (-123.65, 45.45)]]
+ 
+with arcpy.da.InsertCursor("CountyPNT", ["NAME", "SHAPE@XY"]) as cursor:
+    for row in rowValues:
+        cursor.insertRow(row)
+
+print ("Script completed")
+```
