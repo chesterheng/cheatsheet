@@ -44,3 +44,28 @@ for featClass in fc_list:
 
 print ("Script completed")
 ```
+##### Lesson 04: Working with Selections
+```python
+import arcpy
+arcpy.env.workspace = "C:\EsriTraining\PYTH\Selections\SanDiego.gdb"
+
+newField1 = arcpy.AddFieldDelimiters(arcpy.env.workspace,"TYPE")
+newField2 = arcpy.AddFieldDelimiters(arcpy.env.workspace,"ESTAB")
+# TYPE = 'Maritime'
+maritimeSQLExp = newField1 + " = " + "'Maritime'"
+historicSQLExp = newField2 + " > 0 and " + newField2 + " < 1956"
+
+maritimeSQLExp = "TYPE = 'Maritime'"
+historicSQLExp = "ESTAB > 0 and ESTAB < 1956"
+
+# Make Feature Layer in Memory
+arcpy.MakeFeatureLayer_management("Climate", "MaritimeLyr", maritimeSQLExp)
+arcpy.MakeFeatureLayer_management("MajorAttractions", "HistoricLyr", historicSQLExp)
+
+# Select Layer By Location
+arcpy.SelectLayerByLocation_management("HistoricLyr", "COMPLETELY_WITHIN", "MaritimeLyr", "", "NEW_SELECTION")
+
+# Count number of features
+featCount = arcpy.GetCount_management("HistoricLyr")
+print ("Number of historic features selected: {}".format(featCount))
+```
