@@ -119,8 +119,10 @@ arcpy.env.workspace = "C:\EsriTraining\PYTH\Sharing_scripts\Corvallis.gdb"
 arcpy.env.overwriteOutput = True
 
 ### Obtain script parameter values
-distance = arcpy.GetParameterAsText(0)
-output_FC = arcpy.GetParameterAsText(1)
+distance = 500
+output_FC = "output"
+#distance = arcpy.GetParameterAsText(0)
+#output_FC = arcpy.GetParameterAsText(1)
 
 SQLExp = "PARK_NAME = 'Central Park'"
 
