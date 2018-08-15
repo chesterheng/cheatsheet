@@ -1,10 +1,9 @@
 #### Introduction to the Basic Node and Express Challenges
 * edit myApp.js
 ```javascript
-import express from 'express';
-import path from 'path';
-import bodyParser from 'body-parser';
-
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
 const app = express();
 
 // --> 7)  Mount the Logger middleware here
