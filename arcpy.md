@@ -1,4 +1,9 @@
 #### Introduction to Geoprocessing Scripts Using Python
+
+##### Lesson 01: 
+* function vs object
+*
+
 ##### Lesson 02: Describing Data
 ```python
 import arcpy
