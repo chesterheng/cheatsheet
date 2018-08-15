@@ -11,10 +11,9 @@ const myLogger = (req, res, next) => {
   console.log(`${req.method} ${req.path} - ${req.ip}`); 
   next();
 };
-
 app.use(myLogger);
 
-// --> 11)  Mount the body-parser middleware  here
+// --> 11)  Mount the body-parser middleware here
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: false
 })); 
