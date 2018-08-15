@@ -1,6 +1,6 @@
 #### Introduction to the Basic Node and Express Challenges
 * edit myApp.js
-```
+```javascript
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
