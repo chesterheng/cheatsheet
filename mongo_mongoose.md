@@ -1,7 +1,8 @@
+Boliderplate: https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-mongomongoose/
+Solution: https://mongo-mongoose.glitch.me/
+
 ##### MongoDB and Mongoose 
 1. Install and Set Up Mongoose
-* Boliderplate: https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-mongomongoose/
-* Solution: https://mongo-mongoose.glitch.me/
 * npm install --save mongodb mongoose
 * edit package.js
 ```
