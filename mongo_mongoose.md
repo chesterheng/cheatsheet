@@ -19,8 +19,10 @@ mongoose.connect(process.env.MONGO_URI)
 const { Schema } = mongoose;
 const personSchema = new Schema({
     name: { type: String, required: true },
-    age: Number,
-    favoriteFoods: [String]
+    age:  Number,
+    favoriteFoods: [String],
+    birthDate: Date,
+    employed: Boolean
   });
 mongoose.model('person', personSchema);
 ```
