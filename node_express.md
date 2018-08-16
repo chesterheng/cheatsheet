@@ -19,6 +19,21 @@
 * app.patch():
 * app.put():
 
+* edit index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+   <body>
+      <form action="/name" method="post">
+         <label>First Name :</label>
+         <input type="text" name="first" value="John"><br>
+         <label>Last Name :</label>
+         <input type="text" name="last" value="Doe"><br><br>
+         <input type="submit" value="Submit">
+      </form> 
+	</body>
+</html>
+```
 * edit index.js
 ```javascript
 const express = require('express');
@@ -27,6 +42,14 @@ const app = express();
 app.get('/', (req, res) => {
    // Send a JSON response
    res.json({ hi: 'there' });
+});
+
+// get data from form POST
+app.post('/name', (req, res) => {
+   const firstname = req.body.first;
+   const lastname = req.body.last;
+   const name = `${firstname} ${lastname}`;
+   res.json({ name: name });
 });
 
 // all other routes
