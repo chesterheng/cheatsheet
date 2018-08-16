@@ -29,10 +29,15 @@ const Person = mongoose.model('persons');
 
 module.exports = app => {
   app.post("/api/shorturl/new", async (req, res) => {
-    await new Person({
-        name: "Alex",
-        age: 18,
-        favoriteFoods: ["Chicken Rice", "Fish Soup"]}).save();
+    // get name from input element in form
+    const name = req.body.name;
+    // person exists?
+    const existingPerson = await Person.findOne({ name: name });
+    if(existingPerson) {
+      return res.json({ name: name });
+    }
+    
+    await new Person({ name: "Alex", age: 18, favoriteFoods: ["Chicken Rice", "Fish Soup"]}).save();
   });
 };
 ```
