@@ -24,12 +24,14 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send({ hi: 'there' });
+   // Send a JSON response
+   res.json({ hi: 'there' });
 });
 
 // all other routes
 app.all('*', (req, res) => {
-    res.send("Not Found.");
+   // Send a response of a String, an object, or an Array   
+   res.send("Not Found.");
 });
 
 app.listen(5000);
