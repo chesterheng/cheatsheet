@@ -8,7 +8,7 @@
 ```
 MONGO_URI=mongodb://<user>:<password>@ds255309.mlab.com:55309/freecodecamp
 ```
-* edit myApp.js
+* edit index.js
 ```javascript
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI)
@@ -24,26 +24,20 @@ const personSchema = new Schema({
     birthDate: Date,
     employed: Boolean
   });
-mongoose.model('person', personSchema);
+mongoose.model('persons', personSchema);
 ```
 3. Create and Save a Record of a Model
-* edit myApp.js
+* edit routes/apiRoutes.js
 ```javascript
-const handleError = (err) => console.log("Got an error", err);
-const Person = mongoose.model('person');
-const createAndSavePerson = (done) => {
+const mongoose = require('mongoose');
+const Person = mongoose.model('persons');
 
-  const person = new Person({
-  name: "Alex",
-  age: 18,
-  favoriteFoods: ["Chicken Rice", "Fish Soup"]});
-  
-  person.save((err, data) => {
-    if (err) return handleError(err);
-    return done(null, data);
+module.exports = app => {
+  app.post("/api/shorturl/new", async (req, res) => {
+    await new Person({
+        name: "Alex",
+        age: 18,
+        favoriteFoods: ["Chicken Rice", "Fish Soup"]}).save();
   });
-  
-  done(null /*, data*/);
-
 };
 ```
