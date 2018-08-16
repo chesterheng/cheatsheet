@@ -14,25 +14,21 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI)
 ```
 2. Create a Model
-* edit myApp.js
+* edit models/Person.js
 ```javascript
 const { Schema } = mongoose;
 const personSchema = new Schema({
-    name: {
-      type: String,
-      required: true
-    },
+    name: { type: String, required: true },
     age: Number,
     favoriteFoods: [String]
   });
 mongoose.model('person', personSchema);
-const Person = mongoose.model('person');
 ```
 3. Create and Save a Record of a Model
 * edit myApp.js
 ```javascript
 const handleError = (err) => console.log("Got an error", err);
-
+const Person = mongoose.model('person');
 const createAndSavePerson = (done) => {
 
   const person = new Person({
