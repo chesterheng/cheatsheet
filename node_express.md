@@ -1,3 +1,43 @@
+##### Generate Express App
+* npm init
+* npm install --save express  
+* npm install --save nodemon
+    * Simple monitor script for use during development of a node.js app.
+* edit package.json
+```javascript
+{
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+}
+```
+##### Routing methods
+* app.get(): read data
+* app.post(): insert data
+* app.delete(): delete data
+* app.patch():
+* app.put():
+
+* edit index.js
+```javascript
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send({ hi: 'there' });
+});
+
+app.get('*', (req, res) => {
+    res.send("Not Found.");
+});
+
+app.listen(5000);
+```
+
+
+
+
+
 #### Introduction to the Basic Node and Express Challenges
 * edit myApp.js
 ```javascript
