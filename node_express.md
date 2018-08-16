@@ -27,16 +27,13 @@ app.get('/', (req, res) => {
   res.send({ hi: 'there' });
 });
 
-app.get('*', (req, res) => {
+// all routes
+app.all('*', (req, res) => {
     res.send("Not Found.");
 });
 
 app.listen(5000);
 ```
-
-
-
-
 
 #### Introduction to the Basic Node and Express Challenges
 * edit myApp.js
