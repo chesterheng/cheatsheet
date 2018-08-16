@@ -4,6 +4,8 @@
 * npm install --save express  
 * npm install --save nodemon
     * Simple monitor script for use during development of a node.js app.
+* npm install --save body-parser
+    * Extract POST data from req.body
 * edit package.json
 ```javascript
 {
@@ -37,7 +39,22 @@
 * edit index.js
 ```javascript
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
+
+/** bodyParser.urlencoded(options)
+ * Parses the text as URL encoded data (which is how browsers tend to send form data from regular forms set to POST)
+ * and exposes the resulting object (containing the keys and values) on req.body
+ */
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+/**bodyParser.json(options)
+ * Parses the text as JSON and exposes the resulting object on req.body.
+ */
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
    // Send a JSON response
@@ -45,6 +62,7 @@ app.get('/', (req, res) => {
 });
 
 // get data from form POST
+// req.body = { first: 'John', last: 'Doe' }
 app.post('/name', (req, res) => {
    const firstname = req.body.first;
    const lastname = req.body.last;
