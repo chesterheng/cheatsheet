@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
   res.send({ hi: 'there' });
 });
 
-// all routes
+// all other routes
 app.all('*', (req, res) => {
     res.send("Not Found.");
 });
