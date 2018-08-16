@@ -8,11 +8,6 @@
 ```
 MONGO_URI=mongodb://<user>:<password>@ds255309.mlab.com:55309/freecodecamp
 ```
-* edit index.js
-```javascript
-const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URI)
-```
 2. Create a Model
 * edit models/Person.js
 ```javascript
@@ -40,4 +35,28 @@ module.exports = app => {
         favoriteFoods: ["Chicken Rice", "Fish Soup"]}).save();
   });
 };
+```
+* edit index.js
+```javascript
+'use strict';
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongo = require('mongodb');
+const mongoose = require('mongoose');
+require('./models/Person');
+
+const app = express();
+mongoose.connect(process.env.MONGO_URI);
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(cors());
+
+require('./routes/apiRoutes')(app);
+
+const port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log('Node.js listening ...');
+});
 ```
