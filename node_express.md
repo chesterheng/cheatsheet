@@ -30,8 +30,8 @@
          <label>Last Name :</label>
          <input type="text" name="last" value="Doe"><br><br>
          <input type="submit" value="Submit">
-      </form> 
-	</body>
+      </form>
+   </body>
 </html>
 ```
 * edit index.js
