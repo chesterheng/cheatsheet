@@ -1,4 +1,5 @@
 ##### Generate Express App
+* install Postman at https://www.getpostman.com/apps
 * npm init
 * npm install --save express  
 * npm install --save nodemon
