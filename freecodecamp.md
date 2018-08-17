@@ -1,38 +1,37 @@
-##### freeCodeCamp Projects
+##### Cpmpleted freeCodeCamp Projects
 
+###### APIs and Microservices Projects
+* Timestamp Microservice
+    * Demo: https://fcc-tsms.glitch.me
+    * Code: https://github.com/chesterheng/fcc-tsms
+* Request Header Parser Microservice
+    * Demo: https://fcc-rhpms.glitch.me
+    * Code: https://github.com/chesterheng/fcc-rhpms
+* URL Shortener Microservice
+    * Demo: https://fcc-sms.glitch.me
+    * Code: https://github.com/chesterheng/fcc-sms
+* Exercise Tracker
+    * Demo: https://fcc-et.glitch.me
+    * Code: https://github.com/chesterheng/fcc-et
+* File Metadata Microservice
+    * Demo: https://fcc-et.glitch.me
+    * Code: https://github.com/chesterheng/fcc-fmdms
+    
+###### JavaScript Algorithms and Data Structures Projects
+    
 ###### Responsive Web Design Projects
-1. Build A Tribute Page
+* Build A Tribute Page
     * Demo: https://tp.surge.sh
-    * Source code: https://github.com/chesterheng/tribute-page
-
-2. Build A Survey Form
+    * Code: https://github.com/chesterheng/tribute-page
+* Build A Survey Form
     * Demo: https://dsf.surge.sh
     * Source code: https://github.com/chesterheng/survey-form
-
-3. Build A Product Landing Page
+* Build A Product Landing Page
     * Demo: https://pl.surge.sh
     * Source code: https://github.com/chesterheng/product-landing
     
-JavaScript Algorithms and Data Structures Projects
+###### Front End Libraries Projects
 
-Front End Libraries Projects
+###### Data Visualization Projects
 
-Data Visualization Projects
-
-APIs and Microservices Projects
-
-Timestamp Microservice
-
-https://fcc-tsms.glitch.me/
-Request Header Parser Microservice
-
-https://fcc-rhpms.glitch.me
-URL Shortener Microservice
-
-https://fcc-sms.glitch.me/
-Exercise Tracker
-
-https://fcc-et.glitch.me/
-File Metadata Microservice
-
-Information Security and Quality Assurance Projects
+###### Information Security and Quality Assurance Projects
