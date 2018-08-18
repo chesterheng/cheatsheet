@@ -41,6 +41,7 @@ router.post('/login', async (req, res) => {
   // Server: Creates a JWT with a secret
   jwt.sign(payload, keys.jwtSecret, { expiresIn: 3600 }, (err, token) => {
     // Server: Returns the JWT to the browser
+    // token = header + payload + signature
     return res.json({ success: true, token: 'Bearer ' + token });
   });
   // return res.json({ msg: 'Success' });
