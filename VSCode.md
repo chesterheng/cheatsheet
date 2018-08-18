@@ -4,10 +4,10 @@
 * edit USER SETTINGS
 ```javascript
 {
-  "editor.fontSize": 26,
+  "editor.fontSize": 16,
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
-  "terminal.integrated.fontSize": 26,
+  "terminal.integrated.fontSize": 16,
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   },
@@ -15,7 +15,9 @@
     "javascript": "jsx"
   },
   "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "workbench.iconTheme": "vscode-icons",
+  "prettier.singleQuote": true
 }
 ```
 * View > Terminal
