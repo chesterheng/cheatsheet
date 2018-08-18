@@ -15,6 +15,8 @@
   "license": "ISC"
 }
 ```
+
+##### Install Dependencies & Basic Server Setup
 * dependencies
    * npm i express
    * npm i mongoose (a MongoDB object modeling tool designed to work in an asynchronous environment)
@@ -28,7 +30,7 @@
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => res.send("Hello"));
+app.get("/", (req, res) => res.send("Hello!"));
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
