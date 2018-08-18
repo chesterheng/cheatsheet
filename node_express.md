@@ -147,3 +147,6 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 * test: http://localhost:5000/api/users/test
 
 
+* git init
+* git add .
+* git commit -am 'Initial express server with route files'
