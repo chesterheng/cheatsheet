@@ -145,11 +145,6 @@ const User = require("../../models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 
-// @route   GET api/users/test
-// @desc    Test users route
-// @access  Public
-router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
-
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
@@ -219,5 +214,40 @@ name=zzzzzzzz&email=yyyyyyyy%40gmail.com&password=xxxxxxxx
 }
 ```
 ##### Email & Password Login
+* edit routes/api/users.js
+```javascript
+const express = require("express");
+const router = express.Router();
+const User = require("../../models/User");
+const gravatar = require("gravatar");
+const bcrypt = require("bcryptjs");
 
+// @route   GET api/users/login
+// @desc    Login User / Returning Token
+// @access  Public
+router.post("/login", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // find user by email
+  const user = await User.findOne({ email });
+  // check for user
+  if (!user) return res.status(404).json({ email: "User not found" });
+
+  // check password
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (isMatch) return res.json({ msg: "Success" });
+  return res.status(400).json({ password: "Password incorrect" });
+});
+
+module.exports = router;
+```
+* test with Postman
+  * method: POST
+  * Content-Type: x-www-form-urlencoded
+  * KEY: email, VALUE: yyyyyyyy@gmail.com
+  * KEY: password, VALUE: xxxxxxxx
+  * POST request generated  
+  
+##### Creating The JWT
 
