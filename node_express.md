@@ -230,13 +230,17 @@ router.post('/login', async (req, res) => {
   // find user by email
   const user = await User.findOne({ email });
 
-  // check for user
+  // user not found
   if (!user) return res.status(404).json({ email: 'User not found' });
 
-  // check password
+  // user found, check password
   const isMatch = await bcrypt.compare(password, user.password);
-  if (isMatch) return res.json({ msg: 'Success' });
-  return res.status(400).json({ password: 'Password incorrect' });
+
+  // wrong password
+  if (!isMatch) return res.status(400).json({ password: 'Password incorrect' });
+
+  // correct password
+  return res.json({ msg: 'Success' });
 });
 
 module.exports = router;
@@ -249,4 +253,47 @@ module.exports = router;
   * POST request generated  
   
 ##### Creating The JWT
+* edit routes/api/users.js
+```javascript
+const express = require('express');
+const router = express.Router();
+const User = require('../../models/User');
+const gravatar = require('gravatar');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys');
 
+// @route   POST api/users/login
+// @desc    Login User / Returning Token
+// @access  Public
+router.post('/login', async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // find user by email
+  const user = await User.findOne({ email });
+
+  // user not found
+  if (!user) return res.status(404).json({ email: 'User not found' });
+
+  // user found, check password
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  // wrong password
+  if (!isMatch) return res.status(400).json({ password: 'Password incorrect' });
+
+  // correct password, create user payload
+  // payload is actual data being sent over the internet
+  // exclude header information
+  const { id, name, avatar } = user;
+  const payload = { id, name, avatar };
+
+  // Sign Token
+  jwt.sign(payload, keys.jwtSecret, { expiresIn: 3600 }, (err, token) => {
+    return res.json({ success: true, token: 'Bearer ' + token });
+  });
+  // return res.json({ msg: 'Success' });
+});
+
+module.exports = router;
+```
