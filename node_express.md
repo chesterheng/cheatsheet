@@ -195,7 +195,7 @@ module.exports = router;
   * Content-Type: x-www-form-urlencoded
   * KEY: name, VALUE: Chester Heng
   * KEY: email, VALUE: chester.heng@gmail.com
-  * KEY: password, VALUE: gis12345
+  * KEY: password, VALUE: xxxxxxxx
   * POST request generated  
 ```
 POST /api/users/register HTTP/1.1
@@ -204,7 +204,7 @@ Content-Type: application/x-www-form-urlencoded
 Cache-Control: no-cache
 Postman-Token: 85b8c30c-c577-4bb1-a39c-4fa60a03ec78
 
-name=Chester+Heng&email=chester.heng%40gmail.com&password=gis12345
+name=Chester+Heng&email=chester.heng%40gmail.com&password=xxxxxxxx
 ```
   * new user created
 ```
