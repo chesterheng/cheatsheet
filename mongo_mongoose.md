@@ -68,3 +68,25 @@ const UserSchema = new Schema({
 
 module.exports = User = mongoose.model("users", UserSchema);
 ```
+##### User Registration
+* edit routes/api/users.js
+```javascript
+// check existing user
+const user = await User.findOne({ email: req.body.email });
+if (user) return res.status(400).json({ email: "Email aready exists" });
+
+// create new user
+const newUser = new User({
+  name: req.body.name,
+  email: req.body.email,
+  avatar,
+  password: req.body.password
+});
+
+// save new user
+await newUser.save((err, user) => {
+  if (err) console.log(err);
+  res.json(user);
+});
+```
+
