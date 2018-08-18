@@ -64,13 +64,13 @@ module.exports = User = mongoose.model("users", UserSchema);
 ##### User Registration
 * edit routes/api/users.js
 ```javascript
-// check existing user
+// find user by email
 const user = await User.findOne({ email: req.body.email });
 
-// user exist
+// user found
 if (user) return res.status(400).json({ email: 'Email aready exists' });
 
-// user not exist
+// user not found
 if (!user) return res.status(404).json({ email: 'User not found' });
 
 // create new user
