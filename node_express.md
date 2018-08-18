@@ -1,19 +1,44 @@
-##### Generate Express App
-* install Postman at https://www.getpostman.com/apps
+##### Basic Express Setup
+
 * npm init
-* npm install --save express  
-* npm install --save nodemon
-    * Simple monitor script for use during development of a node.js app.
-* npm install --save body-parser
-    * Extract POST data from req.body
 * edit package.json
 ```javascript
 {
+  "name": "devconnector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC"
 }
 ```
+* dependencies
+   * npm i express
+   * npm i mongoose
+   * npm i body-parser (Extract POST data from req.body)
+   * npm i passport passport-jwt jsonwebtoken
+   * npm i bcryptjs validator
+* devDependencies
+   * npm i -D nodemon (Simple monitor script for use during development)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* install Postman at https://www.getpostman.com/apps
 ##### Routing methods
 * app.get(): read data
 * app.post(): insert data
