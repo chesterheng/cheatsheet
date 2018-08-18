@@ -115,7 +115,9 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 const express = require("express");
 const router = express.Router();
 
-// localhost:5000/api/users/test
+// @route   GET api/users/test
+// @desc    Tests post route
+// @access  Public
 router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
 module.exports = router;
