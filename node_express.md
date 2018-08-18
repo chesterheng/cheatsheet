@@ -107,3 +107,29 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 * git init
 * git add .
 * git commit -am 'Initial express server with route files'
+
+##### Add body parser middleware
+* edit server.js
+```javascript
+const bodyParser = require("body-parser");
+
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Connect to MongoDB
+mongoose
+  .connect(keys.mongoURI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
+
+app.get("/", (req, res) => res.send("Hello!"));
+
+// Use Routes
+app.use("/api/users", users);
+app.use("/api/profile", profile);
+app.use("/api/posts", posts);
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
+```
