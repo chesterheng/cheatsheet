@@ -21,14 +21,15 @@
    * npm i mongoose (a MongoDB object modeling tool designed to work in an asynchronous environment)
    * npm i body-parser (extract entire body portion of an incoming POST request stream and exposes it on req.body)
    * npm i passport passport-jwt jsonwebtoken
-   * npm i bcryptjs validator
+   * npm i bcryptjs (hash password)
+   * npm i validator
 * devDependencies
    * npm i -D nodemon (monitor for any changes in source code and automatically restart server)
 
 ##### Basic Server Setup
 * edit server.js
 ```javascript
-const express = require("express");
+const express = require('express');
 const app = express();
 
 app.get("/", (req, res) => res.send("Hello!"));
@@ -68,24 +69,12 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 * npm run server (for development)
 
 ##### Route Files With Express Router
-* edit routes/api/users.js
-```javascript
-const express = require("express");
-const router = express.Router();
-
-// @route   GET api/users/test
-// @desc    Test users route
-// @access  Public
-router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
-
-module.exports = router;
-```
 * edit server.js
 ```javascript
-const express = require("express");
-const mongoose = require("mongoose");
-const keys = require("./config/keys");
-const users = require("./routes/api/users");
+const express = require('express');
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
+const users = require('./routes/api/users');
 const app = express();
 
 // Connect to MongoDB
@@ -101,6 +90,18 @@ app.use("/api/users", users);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
+```
+* edit routes/api/users.js
+```javascript
+const express = require('express');
+const router = express.Router();
+
+// @route   GET api/users/test
+// @desc    Test users route
+// @access  Public
+router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
+
+module.exports = router;
 ```
 * Postman: https://www.getpostman.com/
 * test: http://localhost:5000/api/users/test
@@ -133,3 +134,58 @@ app.use("/api/posts", posts);
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
 ```
+
+##### User Registration & Postman
+* npm i [gravatar](https://github.com/emerleite/node-gravatar) (generate gravatar URLs)
+* edit routes/api/users.js
+```javascript
+const express = require("express");
+const router = express.Router();
+const User = require("../../models/User");
+const gravatar = require("gravatar");
+const bcrypt = require("bcryptjs");
+
+// @route   GET api/users/test
+// @desc    Test users route
+// @access  Public
+router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
+
+// @route   POST api/users/register
+// @desc    Register user
+// @access  Public
+router.post("/register", (req, res) => {
+  // check existing user
+  User.findOne({ email: req.body.email }).then(user => {
+    if (user) {
+      return res.status(400).json({ email: "Email aready exists" });
+    } else {
+      const avatar = gravatar.url(req.body.email, {
+        s: "200", // Size
+        r: "pg", // Rating
+        d: "mm" // Default
+      });
+
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        avatar,
+        password: req.body.password
+      });
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.password = hash;
+          newUser
+            .save()
+            .then(user => res.json(user))
+            .catch(err => console.log(err));
+        });
+      });
+    }
+  });
+});
+
+module.exports = router;
+
+
