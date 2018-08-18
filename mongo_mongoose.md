@@ -13,7 +13,7 @@
 * edit dev.js
 ```javascript
 module.exports = {
-  mongoURI: "mongodb://<username>:<password>@ds1XXXXX.mlab.com:XXXXX/<projectname>db-dev"
+  mongoURI: 'mongodb://<username>:<password>@ds1XXXXX.mlab.com:XXXXX/<projectname>db-dev'
 };
 ```
 * edit prod.js
@@ -24,37 +24,30 @@ module.exports = {
 ```
 * edit keys.js
 ```javascript
-if (process.env.NODE_ENV == "production") {
+if (process.env.NODE_ENV == 'production') {
   // use production keys
-  module.exports = require("./prod");
+  module.exports = require('./prod');
 } else {
   // use development keys
-  module.exports = require("./dev");
+  module.exports = require('./dev');
 }
 ```
 * edit server.js
 ```javascript
-const express = require("express");
-const mongoose = require("mongoose");
-const keys = require("./config/keys");
-const app = express();
+const mongoose = require('mongoose');
+const keys = require('./config/keys');
 
 // Connect to MongoDB
 mongoose
   .connect(keys.mongoURI)
-  .then(() => console.log("MongoDB Connected"))
+  .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
-
-app.get("/", (req, res) => res.send("Hello!"));
-
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server running on port ${port}`));
 ```    
 
 ##### Creating The User Model
 * edit models\User.js
 ```javascript
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 // Create Schema
@@ -73,7 +66,12 @@ module.exports = User = mongoose.model("users", UserSchema);
 ```javascript
 // check existing user
 const user = await User.findOne({ email: req.body.email });
-if (user) return res.status(400).json({ email: "Email aready exists" });
+
+// user exist
+if (user) return res.status(400).json({ email: 'Email aready exists' });
+
+// user not exist
+if (!user) return res.status(404).json({ email: 'User not found' });
 
 // create new user
 const newUser = new User({
