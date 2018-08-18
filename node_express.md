@@ -189,7 +189,7 @@ router.post("/register", async (req, res) => {
 });
 
 module.exports = router;
-
+```
 * test with Postman
   * method: POST
   * Content-Type: x-www-form-urlencoded
