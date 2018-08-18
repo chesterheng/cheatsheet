@@ -17,11 +17,11 @@
 
 ##### Install Dependencies
 * dependencies
-   * npm i express
-   * npm i mongoose (a MongoDB object modeling tool designed to work in an asynchronous environment)
-   * npm i body-parser (extract entire body portion of an incoming POST request stream and exposes it on req.body)
+   * npm i [express](https://expressjs.com/)
+   * npm i [mongoose](https://mongoosejs.com/) (mongodb object modeling)
+   * npm i [body-parser](https://www.npmjs.com/package/body-parser) (extract entire body portion of an incoming POST request stream and exposes it on req.body)
    * npm i passport passport-jwt jsonwebtoken
-   * npm i bcryptjs (hash password)
+   * npm i [bcryptjs](https://www.npmjs.com/package/bcryptjs) (hash password)
    * npm i validator
 * devDependencies
    * npm i -D nodemon (monitor for any changes in source code and automatically restart server)
