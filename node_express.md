@@ -17,12 +17,12 @@
 ```
 * dependencies
    * npm i express
-   * npm i mongoose
-   * npm i body-parser (Extract POST data from req.body)
+   * npm i mongoose (a MongoDB object modeling tool designed to work in an asynchronous environment)
+   * npm i body-parser (extract entire body portion of an incoming POST request stream and exposes it on req.body)
    * npm i passport passport-jwt jsonwebtoken
    * npm i bcryptjs validator
 * devDependencies
-   * npm i -D nodemon (Simple monitor script for use during development)
+   * npm i -D nodemon (monitor for any changes in source code and automatically restart server)
 * edit server.js
 ```javascript
 const express = require("express");
