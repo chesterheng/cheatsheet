@@ -193,8 +193,8 @@ module.exports = router;
 * test with Postman
   * method: POST
   * Content-Type: x-www-form-urlencoded
-  * KEY: name, VALUE: Chester Heng
-  * KEY: email, VALUE: chester.heng@gmail.com
+  * KEY: name, VALUE: zzzzzzzz
+  * KEY: email, VALUE: yyyyyyyy@gmail.com
   * KEY: password, VALUE: xxxxxxxx
   * POST request generated  
 ```
@@ -204,14 +204,14 @@ Content-Type: application/x-www-form-urlencoded
 Cache-Control: no-cache
 Postman-Token: 85b8c30c-c577-4bb1-a39c-4fa60a03ec78
 
-name=Chester+Heng&email=chester.heng%40gmail.com&password=xxxxxxxx
+name=zzzzzzzz&email=yyyyyyyy%40gmail.com&password=xxxxxxxx
 ```
   * new user created
 ```
 {
     "_id": "5b77a5a47d076723d0e894df",
-    "name": "Chester Heng",
-    "email": "chester.heng@gmail.com",
+    "name": "zzzzzzzz",
+    "email": "yyyyyyyy@gmail.com",
     "avatar": "https://s.gravatar.com/avatar/86a350637982265bd40f45fbaad41667?s=200&r=pg&d=mm",
     "password": "$2a$10$lz9subWSymqWZe5ARNMN1uhvPe/biIkrhpJ9uerUxv56DeJSrQfhi",
     "date": "2018-08-18T04:50:44.708Z",
