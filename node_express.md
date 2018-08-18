@@ -67,48 +67,6 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 * npm start (for deployment)
 * npm run server (for development)
 
-##### Connecting To MongoDB With Mongoose
-* edit dev.js
-```javascript
-module.exports = {
-  mongoURI: "mongodb://<username>:<password>@ds1XXXXX.mlab.com:XXXXX/<projectname>db-dev"
-};
-```
-* edit prod.js
-```javascript
-module.exports = {
-  mongoURI: process.env.MONGO_URI
-};
-```
-* edit keys.js
-```javascript
-if (process.env.NODE_ENV == "production") {
-  // use production keys
-  module.exports = require("./prod");
-} else {
-  // use development keys
-  module.exports = require("./dev");
-}
-```
-* edit server.js
-```javascript
-const express = require("express");
-const mongoose = require("mongoose");
-const keys = require("./config/keys");
-const app = express();
-
-// Connect to MongoDB
-mongoose
-  .connect(keys.mongoURI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
-
-app.get("/", (req, res) => res.send("Hello!"));
-
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server running on port ${port}`));
-```
-
 ##### Route Files With Express Router
 * edit routes/api/users.js
 ```javascript
@@ -145,8 +103,6 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
 ```
 * test: http://localhost:5000/api/users/test
-
-
 * git init
 * git add .
 * git commit -am 'Initial express server with route files'
