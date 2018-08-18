@@ -135,7 +135,7 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
 ```
 
-##### User Registration & Postman
+##### POST request User Registration & Postman
 * npm i [gravatar](https://github.com/emerleite/node-gravatar) (generate gravatar URLs)
 * edit routes/api/users.js
 ```javascript
@@ -153,39 +153,68 @@ router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
   // check existing user
-  User.findOne({ email: req.body.email }).then(user => {
-    if (user) {
-      return res.status(400).json({ email: "Email aready exists" });
-    } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: "200", // Size
-        r: "pg", // Rating
-        d: "mm" // Default
-      });
+  const user = await User.findOne({ email: req.body.email });
+  if (user) return res.status(400).json({ email: "Email aready exists" });
 
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        avatar,
-        password: req.body.password
-      });
+  // get user avatar url
+  // eg. "//www.gravatar.com/avatar/86a350637982265bd40f45fbaad41667?s=200&r=pg&d=mm"
+  const avatar = gravatar.url(
+    req.body.email,
+    { s: "200", r: "pg", d: "mm" },
+    true
+  );
 
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
+  // create new user
+  const newUser = new User({
+    name: req.body.name,
+    email: req.body.email,
+    avatar,
+    password: req.body.password
+  });
+
+  // hash new user's password
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(newUser.password, salt, async (err, hash) => {
+      if (err) throw err;
+      newUser.password = hash;
+      // save new user
+      await newUser.save((err, user) => {
+        if (err) console.log(err);
+        res.json(user);
       });
-    }
+    });
   });
 });
 
 module.exports = router;
 
+* test with Postman
+  * method: POST
+  * Content-Type: x-www-form-urlencoded
+  * KEY: name, VALUE: Chester Heng
+  * KEY: email, VALUE: chester.heng@gmail.com
+  * KEY: password, VALUE: gis12345
+  * POST request generated  
+```
+POST /api/users/register HTTP/1.1
+Host: localhost:5000
+Content-Type: application/x-www-form-urlencoded
+Cache-Control: no-cache
+Postman-Token: 85b8c30c-c577-4bb1-a39c-4fa60a03ec78
 
+name=Chester+Heng&email=chester.heng%40gmail.com&password=gis12345
+```
+  * new user created
+```
+{
+    "_id": "5b77a5a47d076723d0e894df",
+    "name": "Chester Heng",
+    "email": "chester.heng@gmail.com",
+    "avatar": "https://s.gravatar.com/avatar/86a350637982265bd40f45fbaad41667?s=200&r=pg&d=mm",
+    "password": "$2a$10$lz9subWSymqWZe5ARNMN1uhvPe/biIkrhpJ9uerUxv56DeJSrQfhi",
+    "date": "2018-08-18T04:50:44.708Z",
+    "__v": 0
+}
+```
