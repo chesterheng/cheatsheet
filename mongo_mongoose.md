@@ -1,3 +1,18 @@
+##### MongoDB Setup With mLab
+* browser: https://mlab.com/
+* Create new
+* Plan Type: Sandbox
+* Provider: Amazon Web Services
+* Region: US West
+* Database Name: <projectname>db-dev or <projectname>db-prod 
+* Select <projectname>db-dev or <projectname>db-prod 
+* Users > Add new database user: <username>/<password>
+* connect string: mongodb://<dbuser>:<dbpassword>@dsXXXXXX.mlab.com:XXXXX/<dbname>
+
+    
+
+
+
 * Boliderplate: https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-mongomongoose/
 * Solution: https://mongo-mongoose.glitch.me/
 
