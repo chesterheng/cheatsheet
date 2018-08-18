@@ -218,3 +218,6 @@ name=zzzzzzzz&email=yyyyyyyy%40gmail.com&password=xxxxxxxx
     "__v": 0
 }
 ```
+##### Email & Password Login
+
+
