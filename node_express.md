@@ -1,5 +1,4 @@
 ##### Basic Express Setup
-
 * npm init
 * edit package.json
 ```javascript
@@ -16,7 +15,7 @@
 }
 ```
 
-##### Install Dependencies & Basic Server Setup
+##### Install Dependencies
 * dependencies
    * npm i express
    * npm i mongoose (a MongoDB object modeling tool designed to work in an asynchronous environment)
@@ -25,6 +24,8 @@
    * npm i bcryptjs validator
 * devDependencies
    * npm i -D nodemon (monitor for any changes in source code and automatically restart server)
+
+##### Basic Server Setup
 * edit server.js
 ```javascript
 const express = require("express");
@@ -66,9 +67,52 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 * npm start (for deployment)
 * npm run server (for development)
 
+##### Connecting To MongoDB With Mongoose
+* edit dev.js
+```javascript
+module.exports = {
+  mongoURI: "mongodb://<username>:<password>@ds1XXXXX.mlab.com:XXXXX/<projectname>db-dev"
+};
+```
+* edit prod.js
+```javascript
+module.exports = {
+  mongoURI: process.env.MONGO_URI
+};
+```
+* edit keys.js
+```javascript
+if (process.env.NODE_ENV == "production") {
+  // use production keys
+  module.exports = require("./prod");
+} else {
+  // use development keys
+  module.exports = require("./dev");
+}
+```
+* edit server.js
+```javascript
+const express = require("express");
+const mongoose = require("mongoose");
 
+const app = express();
 
+// DB config
+const db = require("./config/keys").mongoURI;
 
+// Connect to MongoDB
+mongoose
+  .connect(db)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
+
+app.get("/", (req, res) => res.send("Hello!"));
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => console.log(`Server running on port ${port}`));
+
+```
 
 
 
