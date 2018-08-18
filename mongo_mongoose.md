@@ -9,74 +9,62 @@
 * Users > Add new database user: <username>/<password>
 * connect string: mongodb://<dbuser>:<dbpassword>@dsXXXXXX.mlab.com:XXXXX/<dbname>
 
-    
-
-
-
-* Boliderplate: https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-mongomongoose/
-* Solution: https://mongo-mongoose.glitch.me/
-
-##### MongoDB and Mongoose 
-1. Install and Set Up Mongoose
-* npm install --save mongodb mongoose
-* edit .env
-```
-MONGO_URI=mongodb://<user>:<password>@ds255309.mlab.com:55309/freecodecamp
-```
-2. Create a Model
-* edit models/Person.js
+##### Connecting To MongoDB With Mongoose
+* edit dev.js
 ```javascript
-const { Schema } = mongoose;
-const personSchema = new Schema({
-    name: { type: String, required: true },
-    age:  Number,
-    favoriteFoods: [String],
-    birthDate: Date,
-    employed: Boolean
-  });
-mongoose.model('persons', personSchema);
-```
-3. Create and Save a Record of a Model
-* edit routes/apiRoutes.js
-```javascript
-const mongoose = require('mongoose');
-const Person = mongoose.model('persons');
-
-module.exports = app => {
-  app.post("/api/shorturl/new", async (req, res) => {
-    // get name from input element in form
-    const name = req.body.name;
-    // person exists?
-    const existingPerson = await Person.findOne({ name: name });
-    if(existingPerson) {
-      return res.json({ name: name });
-    }
-    
-    await new Person({ name: "Alex", age: 18, favoriteFoods: ["Chicken Rice", "Fish Soup"]}).save();
-  });
+module.exports = {
+  mongoURI: "mongodb://<username>:<password>@ds1XXXXX.mlab.com:XXXXX/<projectname>db-dev"
 };
 ```
-* edit index.js
+* edit prod.js
 ```javascript
-'use strict';
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongo = require('mongodb');
-const mongoose = require('mongoose');
-require('./models/Person');
-
+module.exports = {
+  mongoURI: process.env.MONGO_URI
+};
+```
+* edit keys.js
+```javascript
+if (process.env.NODE_ENV == "production") {
+  // use production keys
+  module.exports = require("./prod");
+} else {
+  // use development keys
+  module.exports = require("./dev");
+}
+```
+* edit server.js
+```javascript
+const express = require("express");
+const mongoose = require("mongoose");
+const keys = require("./config/keys");
 const app = express();
-mongoose.connect(process.env.MONGO_URI);
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-app.use(cors());
+// Connect to MongoDB
+mongoose
+  .connect(keys.mongoURI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
-require('./routes/apiRoutes')(app);
+app.get("/", (req, res) => res.send("Hello!"));
 
-const port = process.env.PORT || 3000;
-app.listen(port, function () {
-  console.log('Node.js listening ...');
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
+```    
+
+##### Creating The User Model
+* edit models\User.js
+```javascript
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+
+// Create Schema
+const UserSchema = new Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  email: { type: String, required: true },
+  date: { type: Date, default: Date.now }
 });
+
+module.exports = User = mongoose("users", UserSchema);
 ```
