@@ -19,7 +19,7 @@
         * Footer.js
 
 ##### Components
-* Function Component
+* Function Component: rfc
 ```javascript
 import React from 'react'
 export default () => {
