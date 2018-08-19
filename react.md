@@ -6,8 +6,10 @@
 * edit client\package.json
 ```javascript
 "proxy": "http://localhost:5000"
-``
-
+```
+##### Assets Setup
+* https://getbootstrap.com/
+* https://fontawesome.com/
 
 1 Components
 * Function Component
