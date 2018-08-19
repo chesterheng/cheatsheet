@@ -288,3 +288,5 @@ export default connect(
 )(Register);
 
 ```
+
+#### Registration & The Error Reducer
