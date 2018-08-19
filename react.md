@@ -33,7 +33,7 @@ export default () => {
 * Class Component: rcc
 ```javascript
 import React, { Component } from 'react'
-export default class Navbar extends Component {
+class Navbar extends Component {
   render() {
     return (
       <div>
@@ -42,6 +42,7 @@ export default class Navbar extends Component {
     )
   }
 }
+export default Navbar;
 ```
 2. React-router
 * use BrowserRouter when you have a server that will handle dynamic requests
