@@ -220,3 +220,6 @@ class Login extends Component {
 
 export default Login;
 ```
+
+##### Testing Registration With Our Form - No Redux Yet
+* npm i axios
