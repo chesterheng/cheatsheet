@@ -63,7 +63,7 @@ const store = createStore(
 export default store;
 ```
 #### Passing the Store
-* <Provider> make the store available to all container components in the application without passing it explicitly. 
+* Provider component make the store available to all container components in the application without passing it explicitly. 
 * You only need to use it once when you render the root component.
 * edit client\src\index.js
 ```javascript
@@ -101,3 +101,134 @@ class App extends Component {
 
 export default App;
 ```
+##### Redux Action & Reducer Workflow Example
+
+#### Connect component to redux store
+* edit client\src\components\auth\Register.js
+* connect function bridge between dumb React components and the Flux data flow of Redux.
+```javascript
+import React, { Component } from 'react';
+import axios from 'axios';
+import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
+
+class Register extends Component {
+  state = {
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+    errors: {}
+  };
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = async e => {
+    e.preventDefault();
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2
+    };
+
+    this.props.registerUser(newUser);
+  };
+
+  render() {
+    const { errors } = this.state;
+    return (...);
+  }
+}
+
+export default connect(
+  null,
+  { registerUser }
+)(Register);
+```
+
+#### Create Action
+* edit client\src\actions\types.js
+```javascript
+export const TEST_DISPATCH = 'TEST_DISPATCH';
+```
+* edit client\src\actions\authActions.js
+```javascript
+import { TEST_DISPATCH } from './types';
+
+// Register User
+export const registerUser = userData => {
+  return {
+    type: TEST_DISPATCH,
+    payload: userData
+  };
+};
+```
+
+#### Create Reducer
+* edit client\src\e\reducers\authReducer.js
+```javascript
+import { TEST_DISPATCH } from '../actions/types';
+
+const initialState = {
+  isAuthenticated: false,
+  user: {}
+};
+
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case TEST_DISPATCH:
+      return {
+        ...state,
+        user: action.payload
+      };
+    default:
+      return state;
+  }
+};
+```
+* edit client\src\e\reducers\index.js
+```javascript
+import { combineReducers } from 'redux';
+import authReducer from './authReducer';
+
+export default combineReducers({
+  auth: authReducer
+});
+```
+
+#### Press UI Submit Button
+* this.props.registerUser(newUser);
+* action object created
+```javascript
+action {
+  type: 'TEST_DISPATCH',
+  payload: {
+    name: '',
+    email: '',
+    password: '',
+    password2: ''
+  }
+}
+```
+* connect(): inject store.dispatch() implicitly or with mapDispatchToProps()
+* connect(): getState() is also called from dispatch
+* store object updated
+```javascript
+state = {
+  auth: {
+    isAuthenticated: false,
+    user: {
+      name: '',
+      email: '',
+      password: '',
+      password2: ''
+    }
+  }
+}
+```
+* connect(): re-render component with new state
+
