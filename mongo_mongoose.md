@@ -62,6 +62,7 @@ const UserSchema = new Schema({
 module.exports = User = mongoose.model("users", UserSchema);
 ```
 
+http://www.codingpedia.org/ama/cleaner-code-in-nodejs-with-async-await-mongoose-calls-example#after-1
 ##### Create
 
 ##### Read
@@ -105,7 +106,7 @@ router.get('/handle/:handle', async (req, res) => {
     }
     return res.json(profile);
   } catch (err) {
-    return res.status(404).json({ noprofile: 'There is no profile for this user' });
+    res.status(500).json({ error: 'Unknown server error' });
   }
 });
 ```
