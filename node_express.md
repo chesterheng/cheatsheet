@@ -68,6 +68,15 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 * npm start (for deployment)
 * npm run server (for development)
 
+##### Request and Response Objects
+* Request Object
+  * req.body: an object contains POST parameters
+  * req.params: an object contains named route parameters
+  * req.user: contains the authenticated user (need passport)
+* Response Object
+  * res.json(json): sends JSON to client with an optional status code
+  * res.json(status, json): sends JSON to client with an optional status code
+ 
 ##### Route Files With Express Router
 * edit server.js
 ```javascript
