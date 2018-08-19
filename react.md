@@ -159,10 +159,12 @@ export default Navbar;
 ```javascript
 import React, { Component } from 'react';
 
-class Login extends Component {
+class Register extends Component {
   state = {
+    name: '',
     email: '',
     password: '',
+    password2: '',
     errors: {}
   };
 
@@ -170,26 +172,38 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault();
-    const user = {
+    const newUser = {
+      name: this.state.name,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      password2: this.state.password2
     };
-    console.log(user);
+    console.log(newUser);
   };
 
   render() {
     return (
-      <div className="login">
+      <div className="register">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
+              <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">
-                Sign in to your DevConnector account
+                Create your DevConnector account
               </p>
               <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="Name"
+                    name="name"
+                    value={this.state.name}
+                    onChange={this.onChange}
+                  />
+                </div>
                 <div className="form-group">
                   <input
                     type="email"
@@ -197,7 +211,12 @@ class Login extends Component {
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
-                    onChange={this.onChange} />
+                    onChange={this.onChange}
+                  />
+                  <small className="form-text text-muted">
+                    This site uses Gravatar so if you want a profile image, use
+                    a Gravatar email
+                  </small>
                 </div>
                 <div className="form-group">
                   <input
@@ -206,7 +225,18 @@ class Login extends Component {
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
-                    onChange={this.onChange} />
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control form-control-lg"
+                    placeholder="Confirm Password"
+                    name="password2"
+                    value={this.state.password2}
+                    onChange={this.onChange}
+                  />
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
@@ -218,8 +248,116 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Register;
+
 ```
 
-##### Testing Registration With Our Form - No Redux Yet
+##### Testing Registration Form - No Redux Yet
 * npm i axios
+* edit client\src\components\auth\Login.js
+```javascript
+import React, { Component } from 'react';
+import axios from 'axios';
+
+class Register extends Component {
+  state = {
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+    errors: {}
+  };
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = async e => {
+    e.preventDefault();
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2
+    };
+    //console.log(newUser);
+    try {
+      const res = await axios.post('/api/users/register', newUser);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  };
+
+  render() {
+    return (
+      <div className="register">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-8 m-auto">
+              <h1 className="display-4 text-center">Sign Up</h1>
+              <p className="lead text-center">
+                Create your DevConnector account
+              </p>
+              <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="Name"
+                    name="name"
+                    value={this.state.name}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="email"
+                    className="form-control form-control-lg"
+                    placeholder="Email Address"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+                  />
+                  <small className="form-text text-muted">
+                    This site uses Gravatar so if you want a profile image, use
+                    a Gravatar email
+                  </small>
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control form-control-lg"
+                    placeholder="Password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    className="form-control form-control-lg"
+                    placeholder="Confirm Password"
+                    name="password2"
+                    value={this.state.password2}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <input type="submit" className="btn btn-info btn-block mt-4" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Register;
+```
+
+##### Error Handling & Display
+* edit client\src\components\auth\Login.js
+```javascript
+```
