@@ -57,7 +57,7 @@ export default store;
 #### Passing the Store
 * <Provider> make the store available to all container components in the application without passing it explicitly. 
 * You only need to use it once when you render the root component.
-* edit client\src\store.js
+* edit client\src\index.js
 ```javascript
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
