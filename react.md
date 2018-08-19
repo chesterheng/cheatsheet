@@ -11,16 +11,24 @@
 * https://getbootstrap.com/
 * https://fontawesome.com/
 
-1 Components
+##### Folders
+* components
+    * layout
+        * Navbar.js
+        * Landing.js
+        * Footer.js
+
+##### Components
 * Function Component
 ```javascript
-import React from 'react';
-const Header = () => {
-    return(
-        <div>Header</div>
-    );
-};
-export default Header;
+import React from 'react'
+export default () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
 ```
 * Class Component
 ```javascript
