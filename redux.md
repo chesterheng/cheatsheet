@@ -190,7 +190,7 @@ export default (state = initialState, action) => {
   }
 };
 ```
-* edit client\src\e\reducers\index.js
+* edit client\src\reducers\index.js
 ```javascript
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
@@ -231,7 +231,8 @@ state = {
 }
 ```
 * connect(): re-render component with new state
-```
+* edit client\src\components\auth\Register.js
+```javascript
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -290,3 +291,34 @@ export default connect(
 ```
 
 #### Registration & The Error Reducer
+* edit client\src\reducers\errorReducer.js
+```javascript
+import { GET_ERRORS } from '../actions/types';
+const initialState = {};
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ERRORS:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+```
+* edit client\src\reducers\index.js
+```javascript
+import { combineReducers } from 'redux';
+import authReducer from './authReducer';
+import errorReducer from './errorReducer';
+
+export default combineReducers({
+  auth: authReducer,
+  errors: errorReducer
+});
+```
+* edit client\src\components\auth\Register.js
+```javascript
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+```
