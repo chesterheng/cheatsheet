@@ -285,7 +285,8 @@ class Register extends Component {
       const res = await axios.post('/api/users/register', newUser);
       console.log(res.data);
     } catch (err) {
-      console.log(err.response.data);
+      //console.log(err.response.data);
+      this.setState({ errors: err.response.data });
     }
   };
 
@@ -307,8 +308,7 @@ class Register extends Component {
                     placeholder="Name"
                     name="name"
                     value={this.state.name}
-                    onChange={this.onChange}
-                  />
+                    onChange={this.onChange} />
                 </div>
                 <div className="form-group">
                   <input
@@ -317,8 +317,7 @@ class Register extends Component {
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
-                    onChange={this.onChange}
-                  />
+                    onChange={this.onChange} />
                   <small className="form-text text-muted">
                     This site uses Gravatar so if you want a profile image, use
                     a Gravatar email
@@ -331,8 +330,7 @@ class Register extends Component {
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
-                    onChange={this.onChange}
-                  />
+                    onChange={this.onChange} />
                 </div>
                 <div className="form-group">
                   <input
@@ -341,8 +339,7 @@ class Register extends Component {
                     placeholder="Confirm Password"
                     name="password2"
                     value={this.state.password2}
-                    onChange={this.onChange}
-                  />
+                    onChange={this.onChange} />
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
@@ -358,6 +355,7 @@ export default Register;
 ```
 
 ##### Error Handling & Display
+* npm i classnames
 * edit client\src\components\auth\Login.js
 ```javascript
 ```
