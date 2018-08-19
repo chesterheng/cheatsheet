@@ -19,7 +19,7 @@
         * Footer.js
 
 ##### Components
-* Function Component: rfc
+* Function Dump Component: rfc (No lifecycle, no state)
 ```javascript
 import React from 'react'
 export default () => {
@@ -30,17 +30,18 @@ export default () => {
   )
 }
 ```
-* Class Component
+* Class Component: rcc
 ```javascript
-import React, { Component } from 'react';
-class Header extends Component{
-    render() {
-        return(
-            <div>Header</div>
-        );
-    }
+import React, { Component } from 'react'
+export default class Navbar extends Component {
+  render() {
+    return (
+      <div>
+        
+      </div>
+    )
+  }
 }
-export default Header;
 ```
 2. React-router
 * use BrowserRouter when you have a server that will handle dynamic requests
