@@ -1,3 +1,14 @@
+##### Getting Started With React
+* npm i -g create-react-app
+* npm i -g npm (update all npm to latest version)
+* create-react-app client
+* cd client
+* edit client\package.json
+```javascript
+"proxy": "http://localhost:5000"
+``
+
+
 1 Components
 * Function Component
 ```javascript
