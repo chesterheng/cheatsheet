@@ -71,10 +71,14 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 ##### Route Files With Express Router
 * edit server.js
 ```javascript
+// Module dependencies
 const express = require('express');
 const mongoose = require('mongoose');
+
 const keys = require('./config/keys');
 const users = require('./routes/api/users');
+
+// Create Express server.
 const app = express();
 
 // Connect to MongoDB
@@ -83,6 +87,7 @@ mongoose
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
+// Primary app routes
 app.get("/", (req, res) => res.send("Hello!"));
 
 // Use Routes Middleware
