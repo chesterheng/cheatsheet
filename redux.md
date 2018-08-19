@@ -231,5 +231,60 @@ state = {
 }
 ```
 * connect(): re-render component with new state
+```
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
 
- prop-types to document the intended types of properties passed to components. 
+class Register extends Component {
+  state = {
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+    errors: {}
+  };
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = async e => {
+    e.preventDefault();
+    const newUser = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2
+    };
+    // dispatch
+    this.props.registerUser(newUser);
+  };
+
+  render() {
+    const { errors } = this.state;
+    // results of mapStateToProps are merged into the component’s props
+    const { user } = this.props.auth;
+    return (...);
+  }
+}
+
+// Typechecking With PropTypes
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+// any time the store is updated, mapStateToProps will be called. 
+const mapStateToProps = state => ({ auth: state.auth });
+
+// Connects a React component to a Redux store
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(Register);
+
+```
