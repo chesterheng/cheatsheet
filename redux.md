@@ -29,7 +29,16 @@ export default combineReducers({
   auth: authReducer
 });
 ```
-#### Create STore
+#### Create Store
+```javascript
+state=
+{
+  auth: {
+    isAuthenticated: false,
+    user: {}
+  }
+}
+```
 * edit client\src\store.js
 ```javascript
 import { createStore, applyMiddleware, compose } from 'redux';
