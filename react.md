@@ -78,6 +78,8 @@ import './App.css';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
 
 class App extends Component {
   render() {
@@ -86,41 +88,72 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <Route exact path="/" component={Landing} />
+          <div className="container">
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+          </div>
           <Footer />
         </div>
       </Router>
     );
   }
 }
+
 export default App;
+```
+##### React Router - Link
+* edit client\src\components\layout\Navbar.js
+```javascript
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+class Navbar extends Component {
+  render() {
+    return (
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+        <div className="container">
+          <a className="navbar-brand" href="landing.html">
+            DevConnector
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#mobile-nav"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div className="collapse navbar-collapse" id="mobile-nav">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="profiles.html">
+                  {' '}
+                  Developers
+                </a>
+              </li>
+            </ul>
+
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/register">
+                  Sign Up
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">
+                  Login
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+}
+export default Navbar;
 ```
 
 ##### Component State
 
-2. React-router
-* use BrowserRouter when you have a server that will handle dynamic requests
-* use Route component to render content based on the location’s pathname
-```javascript
-import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Header from './Header';
-import Landing from './Landing';
-import Dashboard from './Dashboard';
-import SurveyNew from './surveys/SurveyNew';
-
-class App extends Component {
-    render(){
-        return (
-            <BrowserRouter>
-                <div className="container">
-                    <Header />
-                    <Route exact path="/" component={Landing} />
-                    <Route exact path="/surveys" component={Dashboard} />
-                    <Route path="/surveys/new" component={SurveyNew} />
-                </div>
-            </BrowserRouter>
-        );
-    }
-}
-export default App;
-```
