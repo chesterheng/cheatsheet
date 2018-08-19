@@ -31,8 +31,7 @@ export default combineReducers({
 ```
 #### Create Store
 ```javascript
-state=
-{
+state = {
   auth: {
     isAuthenticated: false,
     user: {}
