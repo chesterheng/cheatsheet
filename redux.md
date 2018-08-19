@@ -232,3 +232,4 @@ state = {
 ```
 * connect(): re-render component with new state
 
+ prop-types to document the intended types of properties passed to components. 
