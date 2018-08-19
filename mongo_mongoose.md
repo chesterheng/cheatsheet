@@ -61,30 +61,157 @@ const UserSchema = new Schema({
 
 module.exports = User = mongoose.model("users", UserSchema);
 ```
-##### User Registration
-* edit routes/api/users.js
+
+##### Create
+
+##### Read
+* Get current user profile
 ```javascript
-// find user by email
-const user = await User.findOne({ email: req.body.email });
-
-// user found
-if (user) return res.status(400).json({ email: 'Email aready exists' });
-
-// user not found
-if (!user) return res.status(404).json({ email: 'User not found' });
-
-// create new user
-const newUser = new User({
-  name: req.body.name,
-  email: req.body.email,
-  avatar,
-  password: req.body.password
-});
-
-// save new user
-await newUser.save((err, user) => {
-  if (err) console.log(err);
-  res.json(user);
+router.get('/', async (req, res) => {
+    try {
+      const profile = await Profile.findOne({ user: req.user.id }).populate( 'user', ['name', 'avatar'] );
+      if (!profile) {
+        return res.status(404).json({ noprofile: 'There is no profile for this user' });
+      }
+      return res.json(profile);
+    } catch (err) {
+      return res.status(404).json({ noprofile: 'There is no profile for this user' });
+    }
+  }
+);
+```
+* Get all profiles
+```javascript
+router.get('/all', async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+    if (!profiles) {
+      return res.status(404).json({ noprofile: 'There are no profiles' });
+    }
+    return res.json(profiles);
+  } catch (err) {
+    return res.status(404).json({ noprofile: 'There are no profiles' });
+  }
 });
 ```
+* Get profile by handle
+```javascript
+router.get('/handle/:handle', async (req, res) => {
+  try {
+    const errors = {};
+    const profile = await Profile.findOne({ handle: req.params.handle }).populate('user', ['name', 'avatar']);
+    if (!profile) {
+      return res.status(404).json({ noprofile: 'There is no profile for this user' });
+    }
+    return res.json(profile);
+  } catch (err) {
+    return res.status(404).json({ noprofile: 'There is no profile for this user' });
+  }
+});
+```
+##### Update
+* Create or Edit user profile
+```javascript
+router.post('/', async (req, res) => {
 
+    // Get fields
+    const profileFields = {};
+    profileFields.user = req.user.id;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.company) profileFields.company = req.body.company;
+    if (req.body.website) profileFields.website = req.body.website;
+    if (req.body.location) profileFields.location = req.body.location;
+    if (req.body.bio) profileFields.bio = req.body.bio;
+    if (req.body.status) profileFields.status = req.body.status;
+    if (req.body.githubusername)
+      profileFields.githubusername = req.body.githubusername;
+    // Skills - Spilt into array
+    if (typeof req.body.skills !== 'undefined') {
+      profileFields.skills = req.body.skills.split(',');
+    }
+
+    // Social
+    profileFields.social = {};
+    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
+    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
+    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
+    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
+    if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+
+    let profile = await Profile.findOne({ user: req.user.id });
+    if (profile) {
+      // Update
+      profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
+      return res.json(profile);
+    } else {
+      // Create
+
+      // Check if handle exists
+      profile = await Profile.findOne({ handle: profileFields.handle });
+      if (profile) {
+        return res.status(400).json({ handle: 'That handle already exists' });
+      }
+
+      // Save Profile
+      profile = await new Profile(profileFields).save();
+      return res.json(profile);
+    }
+  }
+);
+```
+* Add experience to profile
+```javascript
+router.post('/education', async (req, res) => {
+    let profile = await Profile.findOne({ user: req.user.id });
+    const newEdu = {
+      school: req.body.title,
+      degree: req.body.company,
+      fieldofstudy: req.body.location,
+      from: req.body.from,
+      to: req.body.to,
+      current: req.body.current,
+      description: req.body.description
+    };
+
+    // add edu array
+    profile.education.unshift(newEdu);
+    profile = await profile.save();
+    res.json(profile);
+  }
+);
+```
+
+##### Delete
+* Delete profile
+```javascript
+router.delete('/', async (req, res) => {
+    try {
+      await Profile.findOneAndRemove({ user: req.user.id });
+      await User.findOneAndRemove({ _id: req.user.id });
+      res.json({ success: true });
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  }
+);
+```
+* Delete experience from profile
+```javascript
+router.delete('/experience/:exp_id', async (req, res) => {
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      // get remove index
+      const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.exp_id);
+
+      // splice out of array
+      profile.experience.splice(removeIndex, 1);
+
+      // save
+      profile = profile.save();
+      return res.json(profile);
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  }
+);
