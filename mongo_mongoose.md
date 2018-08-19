@@ -186,11 +186,23 @@ router.post('/education', async (req, res) => {
 ```javascript
 router.delete('/', async (req, res) => {
     try {
-      await Profile.findOneAndRemove({ user: req.user.id });
-      await User.findOneAndRemove({ _id: req.user.id });
-      res.json({ success: true });
+      // delete profile
+      const profile = await Profile.findOneAndRemove({ user: req.user.id });
+      if (!profile) {
+        return res.status(404).json({ noprofile: 'Profile Not Found' });
+      } else {
+        return res.status(204).json({ success: 'Profile successfully deleted' });
+      }
+      
+      // delete user
+      const user = await User.findOneAndRemove({ _id: req.user.id });
+      if (!user) {
+        return res.status(404).json({ noprofile: 'User Not Foundr' });
+      } else {
+        return res.status(204).json({ success: 'User successfully deleted' });
+      }
     } catch (err) {
-      res.status(404).json(err);
+      res.status(500).json({ error: 'Unknown server error' });
     }
   }
 );
