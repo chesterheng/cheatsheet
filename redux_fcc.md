@@ -148,7 +148,7 @@ const requestingData = () => ({ type: REQUESTING_DATA });
 const receivedData = (data) => ({ type: RECEIVED_DATA, users: data.users });
 
 // use Redux Thunk middleware to handlle asynchronous types of requests
-// return dispatch function
+// return dispatch function after call back
 // By default, Redux action creators don't support asynchronous actions
 // so we utilise Redux Thunk 
 // Thunk allows you to write action creators that return a function instead of an action. 
