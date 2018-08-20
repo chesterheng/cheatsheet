@@ -148,16 +148,19 @@ const requestingData = () => ({ type: REQUESTING_DATA });
 const receivedData = (data) => ({ type: RECEIVED_DATA, users: data.users });
 
 // use Redux Thunk middleware to handlle asynchronous types of requests
-const handleAsync = () => { 
-  return dispatch => {
-    // dispatch request action here
-    dispatch(requestingData());
-    setTimeout(() => { 
-      let data = { users: ['Jeff', 'William', 'Alice'] }
-      // dispatch received data action here
-      dispatch(receivedData(data)); 
-    }, 2500); 
-  }
+// return dispatch function
+// By default, Redux action creators don't support asynchronous actions
+// so we utilise Redux Thunk 
+// Thunk allows you to write action creators that return a function instead of an action. 
+// The inner function can receive the store methods dispatch and getState as parameters, but we'll just use dispatch.
+const handleAsync = () => dispatch => {
+  // dispatch request action here
+  dispatch(requestingData());
+  setTimeout(() => {
+    let data = { users: ['Jeff', 'William', 'Alice'] };
+    // dispatch received data action here
+    dispatch(receivedData(data));
+  }, 2500);
 };
 const defaultState = { fetching: false, users: [] };
 
