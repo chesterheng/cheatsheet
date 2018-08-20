@@ -27,6 +27,8 @@ const actionCreator = () => action;
 const reducer = (state = {login: false}) => state;
 const store = Redux.createStore(reducer);
 const loginAction = () => ({ type: 'LOGIN' });
+
+// Dispatches an action to trigger a state change.
 store.dispatch(loginAction());
 ```
 
