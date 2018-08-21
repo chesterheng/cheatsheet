@@ -6,7 +6,7 @@
 * public/ – contains all static files like images, styles and javascript
 * views/ – provides templates which are rendered and served by your routes
 * tests/ – tests everything which is in the other folders
-* app.js – initializes the app and glues everything together
+* server.js – initializes the app and glues everything together
 * package.json – remembers all packages that your app depends on and their versions
 
 ##### Node/CommonJS modules
