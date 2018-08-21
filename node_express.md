@@ -161,15 +161,15 @@ module.exports = router;
 ```javascript
 const bodyParser = require('body-parser');
 
-// Body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
 // Connect to MongoDB
 mongoose
   .connect(keys.mongoURI)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
+  
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => res.send("Hello!"));
 
