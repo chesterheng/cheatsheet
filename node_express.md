@@ -9,6 +9,28 @@
 * app.js – initializes the app and glues everything together
 * package.json – remembers all packages that your app depends on and their versions
 
+##### Node/CommonJS modules
+* keys.js
+```javascript
+module.exports = {
+  mongoURI: 'mongodb://<username>:<password>@ds125402.mlab.com:25402/<dbname>',
+};
+```
+* keys.js
+```javascript
+if (process.env.NODE_ENV == 'production') {
+  // use production keys
+  module.exports = require('./prod');
+} else {
+  // use development keys
+  module.exports = require('./dev');
+}
+```
+* edit server.js
+```javascript
+const keys = require('./config/keys');
+```
+
 ##### Basic Express Setup
 * npm init
 * edit package.json
