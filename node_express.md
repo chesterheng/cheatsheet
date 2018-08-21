@@ -294,7 +294,7 @@ module.exports = router;
   * KEY: password, VALUE: xxxxxxxx
   * POST request generated  
   
-##### Creating The JWT
+##### Creating The JWT-Based, Stateless Authentication
 * edit routes/api/users.js
 ```javascript
 const express = require('express');
