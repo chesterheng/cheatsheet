@@ -13,7 +13,7 @@
 * keys.js
 ```javascript
 module.exports = {
-  mongoURI: 'mongodb://<username>:<password>@ds125402.mlab.com:25402/<dbname>',
+  mongoURI: 'mongodb://<username>:<password>@ds125402.mlab.com:25402/<dbname>'
 };
 ```
 * keys.js
