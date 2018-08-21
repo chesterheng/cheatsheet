@@ -158,6 +158,14 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
 ```
 
+
+##### Use HTTP Methods & API Routes
+* POST /user or PUT /user:/id to create a new user,
+* GET /user to retrieve a list of users,
+* GET /user/:id to retrieve a user,
+* PATCH /user/:id to modify an existing user record,
+* DELETE /user/:id to remove a user.
+
 ##### POST request User Registration & Postman
 * npm i [gravatar](https://github.com/emerleite/node-gravatar) (generate gravatar URLs)
 * edit routes/api/users.js
