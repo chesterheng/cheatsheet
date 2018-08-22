@@ -1,5 +1,15 @@
 #### Building RESTful API's Using Express
 
+##### HTTP methods
+* GET: /api/courses or /api/courses/1
+* POST: /api/courses 
+* PUT: /api/courses/1
+* DELETE: /api/courses/1
+
+##### HTTP error code
+* 400: Bad Request
+* 404: Not Found
+
 ##### Building Your First Web Server
 ##### Environment Variables
 * npm init
@@ -10,11 +20,11 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  return res.send('Hello World');
 });
 
 app.get('/api/courses', (req, res) => {
-  res.send([1, 2, 3]);
+  return res.send([1, 2, 3]);
 });
 
 const port = process.env.PORT || 3000;
@@ -48,7 +58,7 @@ app.listen(port, () => console.log(`Listening on port ${port}...`));
 ##### Route Parameters
 ```javascript
 app.get('/api/courses/:id', (req, res) => {
-  res.send(req.params.id);
+  return res.send(req.params.id);
 });
 ```
 
@@ -62,14 +72,14 @@ const courses = [
 ];
 
 app.get('/api/courses', (req, res) => {
-  res.send(courses);
+  return res.send(courses);
 });
 
 app.get('/api/courses/:id', (req, res) => {
   const course = courses.find(c => c.id === parseInt(req.params.id));
   // not found
-  if (!course) res.status(404).send('Course ID not found');
-  res.send(course);
+  if (!course) return res.status(404).send('Course ID not found');
+  return res.send(course);
 });
 ```
 
@@ -82,7 +92,7 @@ app.post('/api/courses', (req, res) => {
     name: req.body.name
   };
   courses.push(course);
-  res.send(course);
+  return res.send(course);
 });
 ```
 
@@ -92,23 +102,44 @@ app.post('/api/courses', (req, res) => {
 
 ##### Input Validation
 ```javascript
+validateCourse = course => {
+  const schema = { name: Joi.string().min(3).required() };
+  return Joi.validate(course, schema);
+};
+```
+
+```javascript
 const Joi = require('joi');
 
-app.post('/api/courses', (req, res) => {
-  const schema = {
-    name: Joi.string().min(3).required()
-  };
-
-  // bad request
-  const result = Joi.validate(req.body, schema);
-  if (result.error) return res.status(404).send(result.error.details[0].message);
-
+  // invalid course info
+  const { error } = validateCourse(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+  
   const course = { id: courses.length + 1, name: req.body.name };
   courses.push(course);
-  res.send(course);
+  return res.send(course);
 });
 ```
 
-##### Handling HTTP PUT Requests
+##### Handling HTTP PUT Requests = Handling HTTP GET Requests + Input Validation
+```javascript
+app.put('/api/courses/:id', (req, res) => {
+  // course exist?
+  const course = courses.find(c => c.id === parseInt(req.params.id));
+
+  // course not exist
+  if (!course) return res.status(404).send('Course ID not found');
+
+  // invalid course info
+  const { error } = validateCourse(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  // update course
+  course.name = req.body.name;
+  return res.send(course);
+});
+```
+
 ##### Handling HTTP Delete Requests
+
 ##### Project- Build the Genres API
