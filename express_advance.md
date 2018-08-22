@@ -1,6 +1,7 @@
 #### Express- Advanced Topics
 
 ##### Middleware
+* call in sequence
 ```javascript
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
