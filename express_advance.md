@@ -56,6 +56,19 @@ app.use(logger);
 ```
 
 ##### Environments
+```javascript
+// window: SET NODE_ENV=development
+// OS X: export NODE_ENV=development
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('tiny'));
+  debug('Morgan enabled...');
+}
+
+if (app.get('env') === 'development') {
+  app.use(morgan('tiny'));
+  debug('Morgan enabled...');
+}
+```
 
 ##### Configuration
 
