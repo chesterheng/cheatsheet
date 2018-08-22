@@ -71,6 +71,7 @@ if (app.get('env') === 'development') {
 ```
 
 ##### Configuration
+* npm i config
 
 ##### Debugging
 
