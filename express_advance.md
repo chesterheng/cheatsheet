@@ -6,9 +6,13 @@
 // Postman Header -> raw: JSON(application/json)
 // Postman Body -> { "name": "My course" }
 app.use(express.json());  // { key: value, key: value }
+
 // Postman Header -> x-www-form-urlencoded
 // Postman Body -> Key: name, Value: My course
 app.use(express.urlencoded({ extended: true }));  // key=value&key=value
+
+// edit public\readme.txt
+// localhost:3000/readme.txt
 app.use(express.static('public'));  // server static files
 ```
 
