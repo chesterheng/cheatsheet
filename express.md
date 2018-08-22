@@ -54,6 +54,13 @@ app.get('/api/courses/:id', (req, res) => {
 
 ##### Handling HTTP GET Requests
 ```javascript
+
+const courses = [
+  { id: 1, name: 'course 1' },
+  { id: 2, name: 'course 2' },
+  { id: 3, name: 'course 3' }
+];
+
 app.get('/api/courses', (req, res) => {
   res.send(courses);
 });
@@ -67,6 +74,19 @@ app.get('/api/courses/:id', (req, res) => {
 
 ##### Handling HTTP POST Requests
 ##### Calling Endpoints Using Postman
+```javascript
+app.use(express.json());
+
+app.post('/api/courses', (req, res) => {
+  const course = {
+    id: course.length + 1,
+    name: req.body.name
+  };
+  courses.push(course);
+  res.send(courses);
+});
+```
+
 ##### Input Validation
 ##### Handling HTTP PUT Requests
 ##### Handling HTTP Delete Requests
