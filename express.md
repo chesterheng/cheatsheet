@@ -103,22 +103,30 @@ app.post('/api/courses', (req, res) => {
 
 ##### Input Validation
 ```javascript
-validateCourse = course => {
-  const schema = { name: Joi.string().min(3).required() };
-  return Joi.validate(course, schema);
-};
-```
-
-```javascript
 const Joi = require('joi');
 
-  // invalid course info
+validateCourse = course => {
+  const schema = { name: Joi.string().min(3).required() };
+  /*
+  { error: null,
+  value: { name: 'very new' },
+  then: [Function: then],
+  catch: [Function: catch] }
+  */
+  return Joi.validate(course, schema);
+};
+
+app.post('/api/courses', (req, res) => {
+  // course info valid?
   const { error } = validateCourse(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-  
-  const course = { id: courses.length + 1, name: req.body.name };
+
+  const course = {
+    id: courses.length + 1,
+    name: req.body.name
+  };
   courses.push(course);
-  return res.send(course);
+  res.send(course);
 });
 ```
 
