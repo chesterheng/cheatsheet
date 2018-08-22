@@ -141,5 +141,19 @@ app.put('/api/courses/:id', (req, res) => {
 ```
 
 ##### Handling HTTP Delete Requests
+```javascript
+app.delete('/api/courses/:id', (req, res) => {
+  // course exist?
+  const course = courses.find(c => c.id === parseInt(req.params.id));
+
+  // course not exist
+  if (!course) return res.status(404).send('Course ID not found');
+
+  // delete
+  const index = courses.indexOf(course);
+  courses.splice(index, 1);
+  res.send(course);
+});
+```
 
 ##### Project- Build the Genres API
