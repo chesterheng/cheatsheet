@@ -67,27 +67,48 @@ app.get('/api/courses', (req, res) => {
 
 app.get('/api/courses/:id', (req, res) => {
   const course = courses.find(c => c.id === parseInt(req.params.id));
+  // not found
   if (!course) res.status(404).send('Course ID not found');
   res.send(course);
 });
 ```
 
 ##### Handling HTTP POST Requests
-##### Calling Endpoints Using Postman
 ```javascript
 app.use(express.json());
-
 app.post('/api/courses', (req, res) => {
   const course = {
-    id: course.length + 1,
+    id: courses.length + 1,
     name: req.body.name
   };
   courses.push(course);
-  res.send(courses);
+  res.send(course);
 });
 ```
 
+##### Calling Endpoints Using Postman
+* Heaeder: raw, JSON(application/json
+* Body: { "name": "new course" }
+
 ##### Input Validation
+```javascript
+const Joi = require('joi');
+
+app.post('/api/courses', (req, res) => {
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
+
+  // bad request
+  const result = Joi.validate(req.body, schema);
+  if (result.error) return res.status(404).send(result.error.details[0].message);
+
+  const course = { id: courses.length + 1, name: req.body.name };
+  courses.push(course);
+  res.send(course);
+});
+```
+
 ##### Handling HTTP PUT Requests
 ##### Handling HTTP Delete Requests
 ##### Project- Build the Genres API
