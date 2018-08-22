@@ -46,8 +46,15 @@ app.listen(port, () => console.log(`Listening on port ${port}...`));
 * npm run dev
 
 ##### Route Parameters
+```javascript
+app.get('/api/courses/:id', (req, res) => {
+  res.send(req.params.id);
+});
+```
 
 ##### Handling HTTP GET Requests
+
+
 ##### Handling HTTP POST Requests
 ##### Calling Endpoints Using Postman
 ##### Input Validation
