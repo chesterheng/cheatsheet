@@ -76,8 +76,9 @@ app.get('/api/courses', (req, res) => {
 });
 
 app.get('/api/courses/:id', (req, res) => {
+  // course exist?
   const course = courses.find(c => c.id === parseInt(req.params.id));
-  // not found
+  
   if (!course) return res.status(404).send('Course ID not found');
   return res.send(course);
 });
@@ -126,11 +127,9 @@ const Joi = require('joi');
 app.put('/api/courses/:id', (req, res) => {
   // course exist?
   const course = courses.find(c => c.id === parseInt(req.params.id));
-
-  // course not exist
   if (!course) return res.status(404).send('Course ID not found');
 
-  // invalid course info
+  // course info valid?
   const { error } = validateCourse(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -145,8 +144,6 @@ app.put('/api/courses/:id', (req, res) => {
 app.delete('/api/courses/:id', (req, res) => {
   // course exist?
   const course = courses.find(c => c.id === parseInt(req.params.id));
-
-  // course not exist
   if (!course) return res.status(404).send('Course ID not found');
 
   // delete
