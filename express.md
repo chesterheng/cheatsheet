@@ -86,6 +86,7 @@ app.get('/api/courses/:id', (req, res) => {
 
 ##### Handling HTTP POST Requests
 ```javascript
+// parse body of requests with a JSON payload
 app.use(express.json());
 app.post('/api/courses', (req, res) => {
   const course = {
