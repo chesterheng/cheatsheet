@@ -1,7 +1,7 @@
-##### Building RESTful API's Using Express
+#### Building RESTful API's Using Express
 
-#### Building Your First Web Server
-#### Environment Variables
+##### Building Your First Web Server
+##### Environment Variables
 * npm init
 * npm i express
 * edit server.js
@@ -21,7 +21,7 @@ const port = 3000 || process.env.PORT;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 ```
 
-#### Nodemon
+##### Nodemon
 * npm i nodemon
 * edit package.json
 ```javascript
@@ -45,12 +45,12 @@ app.listen(port, () => console.log(`Listening on port ${port}...`));
 ```
 * npm run dev
 
-#### Route Parameters
+##### Route Parameters
 
-#### Handling HTTP GET Requests
-#### Handling HTTP POST Requests
-#### Calling Endpoints Using Postman
-#### Input Validation
-#### Handling HTTP PUT Requests
-#### Handling HTTP Delete Requests
-#### Project- Build the Genres API
+##### Handling HTTP GET Requests
+##### Handling HTTP POST Requests
+##### Calling Endpoints Using Postman
+##### Input Validation
+##### Handling HTTP PUT Requests
+##### Handling HTTP Delete Requests
+##### Project- Build the Genres API
