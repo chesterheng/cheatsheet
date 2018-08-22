@@ -1,11 +1,11 @@
 #### Express- Advanced Topics
 
-##### Middleware
+##### Built-In Middleware
 * call in sequence
 ```javascript
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true })); 
-app.use(express.static('public'));
+app.use(express.json());  // { key: value, key: value }
+app.use(express.urlencoded({ extended: true }));  // key=value&key=value
+app.use(express.static('public'));  // server static files
 ```
 
 ##### Creating Custom Middleware
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(logger);
 ```javascript
 
-##### Built-In Middleware
+
 
 ##### Third-party Middleware
 
