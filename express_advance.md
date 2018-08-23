@@ -128,6 +128,38 @@ app.get('/', (req, res) => {
 ##### Authentication
 
 ##### Structuring Express Applications
+* edit routes\home.js
+```javascript
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res) => { ... });
+
+module.exports = router;
+```
+* edit routes\courses.js
+```javascript
+const express = require('express');
+const router = express.Router();
+
+router.get('/', (req, res) => { ... });
+router.get('/:id', (req, res) => { ... });
+router.post('/', (req, res) => { ... });
+router.put('/:id', (req, res) => { ... });
+router.delete('/:id', (req, res) => { ... });
+
+module.exports = router;
+```
+* edit server.js
+```javascript
+const home = require('./routes/home');
+const courses = require('./routes/courses');
+
+const app = express();
+...
+app.use('/api/courses', courses);
+app.use('/', home);
+```
 
 ##### Project- Restructure the App
 
