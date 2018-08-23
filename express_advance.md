@@ -108,6 +108,14 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', './views');
 ```
+* edit views\index.pug
+```
+html
+  head
+    title= title
+  body
+    h1= message
+```
 
 ##### Database Integration
 
