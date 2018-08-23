@@ -27,4 +27,5 @@
   * Prettier - Code formatter
   * Live Server
   * Node.js Modules Intellisense
+  * DotENV: Support for dotenv file syntax
   * vscode-icons: Icons for Visual Studio Code (File > Preferences > File Icon Theme > VSCode Icons)
