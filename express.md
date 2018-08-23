@@ -1,4 +1,7 @@
 #### Building RESTful API's Using Express
+* https://medium.com/studioarmix/learn-restful-api-design-ideals-c5ec915a430f
+* https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9
+
 
 ##### HTTP methods
 * GET: /api/courses or /api/courses/1
