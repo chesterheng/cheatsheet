@@ -85,6 +85,7 @@ const port = process.env.PORT;
 
 ##### Debugging
 * npm i debug
+
 * edit .env
 ```
 DEBUG=app:startup
@@ -100,6 +101,13 @@ startupDebugger('Morgan enabled...');
 ```
 
 ##### Templating Engines
+* npm i pug
+* edit server.js
+```javascript
+const app = express();
+app.set('view engine', 'pug');
+app.set('views', './views');
+```
 
 ##### Database Integration
 
