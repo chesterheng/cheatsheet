@@ -123,6 +123,7 @@ app.get('/', (req, res) => {
 ```
 
 ##### Database Integration
+* https://expressjs.com/en/guide/database-integration.html
 
 ##### Authentication
 
