@@ -71,8 +71,17 @@ if (app.get('env') === 'development') {
 ```
 
 ##### Configuration
-* npm i config
+* https://codingsans.com/blog/node-config-best-practices
 * npm i dotenv 
+* edit .env
+```
+PORT=3000
+```
+* edit server.js
+```javascript
+require('dotenv').config();
+const port = process.env.PORT;
+```
 
 ##### Debugging
 
