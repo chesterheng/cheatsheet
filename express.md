@@ -5,8 +5,10 @@
 ##### Best practices for Express app structure
 * package.json – remembers all packages that your app depends on and their versions
 * server.js – initializes the app and glues everything together
-* models/ – represents data, implements business logic and handles storage
+* databases/ – store initial seed data 
 * routes/ – defines your app routes and their logic
+* validation/ –  validator for JavaScript objects 
+* models/ – represents data, implements business logic and handles storage
 * helpers/ – code and functionality to be shared by different parts of the project
 * middlewares/ – Express middlewares which process the incoming requests before handling them down to the routes
 * public/ – contains all static files like images, styles and javascript
