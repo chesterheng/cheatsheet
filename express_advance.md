@@ -88,6 +88,9 @@ const port = process.env.PORT;
 * edit .env
 ```
 DEBUG=app:startup
+DEBUG=app:startup,app:db
+DEBUG=app:*
+DEBUG=app:startup nodemon server.js
 ```
 * edit server.js
 ```javascript
