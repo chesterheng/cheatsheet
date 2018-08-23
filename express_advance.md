@@ -85,6 +85,16 @@ const port = process.env.PORT;
 
 ##### Debugging
 * npm i debug
+* edit .env
+```
+DEBUG=app:startup
+```
+* edit server.js
+```javascript
+const startupDebugger = require('debug')('app:startup');
+const dbDebugger = require('debug')('app:db');
+startupDebugger('Morgan enabled...');
+```
 
 ##### Templating Engines
 
