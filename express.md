@@ -2,6 +2,16 @@
 * https://medium.com/studioarmix/learn-restful-api-design-ideals-c5ec915a430f
 * https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9
 
+##### Best practices for Express app structure
+package.json – remembers all packages that your app depends on and their versions
+server.js – initializes the app and glues everything together
+models/ – represents data, implements business logic and handles storage
+routes/ – defines your app routes and their logic
+helpers/ – code and functionality to be shared by different parts of the project
+middlewares/ – Express middlewares which process the incoming requests before handling them down to the routes
+public/ – contains all static files like images, styles and javascript
+views/ – provides templates which are rendered and served by your routes
+tests/ – tests everything which is in the other folders
 
 ##### HTTP methods
 * GET: /api/courses or /api/courses/1
