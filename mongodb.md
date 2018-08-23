@@ -27,7 +27,7 @@ const courseSchema = new Schema({
   date: { type: Date, default: Date.now },
   isPublished: Boolean
 });
-module.exports = User = mongoose.model("Course", courseSchema);
+module.exports = Course = mongoose.model("Course", courseSchema);
 ```
 
 ##### Models
