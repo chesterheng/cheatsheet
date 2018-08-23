@@ -84,6 +84,7 @@ const port = process.env.PORT;
 ```
 
 ##### Debugging
+* npm i debug
 
 ##### Templating Engines
 
