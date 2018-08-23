@@ -72,6 +72,7 @@ if (app.get('env') === 'development') {
 
 ##### Configuration
 * npm i config
+* npm i dotenv 
 
 ##### Debugging
 
