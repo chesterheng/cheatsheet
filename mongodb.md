@@ -32,7 +32,7 @@ module.exports = Course = mongoose.model("Course", courseSchema);
 
 ##### Models
 ```javascript
-const Course = require('./models/Course);
+const Course = require('./models/Course');
 const course = new Course({
   name: 'Node JS Course',
   author: 'John',
