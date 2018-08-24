@@ -111,8 +111,8 @@ const courseSchema = new Schema({
   name: { 
     type: String, 
     required: true,
-    minLength: 5,
-    maxLength: 255,
+    minlength: 5,
+    maxlength: 255,
     // match: /pattern/
   },
   category: {
