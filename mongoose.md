@@ -139,7 +139,36 @@ const courseSchema = new Schema({
 ```
 
 ##### Add Persistence to Genres API
+##### Restructuring the Project
+* edit models\genre.js
 ```javascript
+const Joi = require('joi');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const genreSchema = new Schema({
+  name: { type: String, required: true, minlength: 5, maxlength: 50 }
+});
+
+const Genre = mongoose.model("Course", genreSchema);
+
+const validateGenre = (genre) => {
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
+
+  return Joi.validate(genre, schema);
+}
+
+exports.Genre = Genre; 
+exports.validate = validateGenre;
+```
+* edit routes\genres.js
+```javascript
+const express = require('express');
+const router = express.Router();
+const {Genre, validate} = require('../models/genre');
+
 // @route   GET api/genres
 // @desc    Get all genres
 // @access  Public
@@ -206,39 +235,26 @@ router.delete('/:id', async (req, res) => {
 });
 ```
 
-8.7- Project.zip
-109. Project- Build the Customers API
+#### Mongoose- Modeling Relationships Between Connected Data
+##### Modelling Relationships
 
-8.8- Project- Build the Customers API.zip
-110. Restructuring the Project
+##### Referencing Documents
+##### Population
+##### Embedding Documents
+##### Using an Array of Sub-documents
 
-8.9- Project- Restructure the Project.zip
+##### Project- Build the Movies API
 
-Mongoose- Modeling Relationships Between Connected Data
-112. Modelling Relationships
+##### Project- Build the Movies API.zip
+##### Project- Build the Rentals API
 
-113. Referencing Documents
+##### Project- Build the Rentals API.zip
+##### Transactions
 
-9.2- Referencing Documents.zip
-114. Population
+##### ObjectID
 
-115. Embedding Documents
+##### Validating Object ID's
 
-9.4- Embedding Documents.zip
-116. Using an Array of Sub-documents
-
-117. Project- Build the Movies API
-
-9.6- Project- Build the Movies API.zip
-118. Project- Build the Rentals API
-
-9.7- Project- Build the Rentals API.zip
-119. Transactions
-
-120. ObjectID
-
-121. Validating Object ID's
-
-9.10- Validating ObjectIDs.zip
-122. A Better Implementation
+##### Validating ObjectIDs.zip
+##### A Better Implementation
 
