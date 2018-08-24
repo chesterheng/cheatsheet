@@ -139,7 +139,72 @@ const courseSchema = new Schema({
 ```
 
 ##### Add Persistence to Genres API
+```javascript
+// @route   GET api/genres
+// @desc    Get all genres
+// @access  Public
+router.get('/', async (req, res) => {
+  const genres = await Genre.find().sort('name');
+  return res.send(genres);
+});
 
+// @route   GET api/genres/:id
+// @desc    Get all genres
+// @access  Public
+router.get('/:id', async (req, res) => {
+  // genre exist?
+  const genre = await Genre.findById(req.params.id);
+  if (!genre) return res.status(404).send('Genre ID not found');
+  return res.send(genre);
+});
+
+// @route   POST api/genres
+// @desc    Get all genres
+// @access  Public
+router.post('/', async (req, res) => {
+  // genre info valid?
+  const { error } = validateGenre(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  // create new genre
+  let genre = new Genre({ name: req.body.name });
+
+  // save new genre
+  genre = await genre.save();
+  return res.send(genre);
+});
+
+// @route   PUT api/genres/:id
+// @desc    Get all genres
+// @access  Public
+router.put('/:id', async (req, res) => {
+  // genre info valid?
+  const { error } = validateGenre(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  // update genre
+  const genre = await Genre.findByIdAndUpdate(
+    req.params.id,
+    { name: req.body.name },
+    { new: true }
+  );
+
+  // genre exist?
+  if (!genre) return res.status(404).send('Genre ID not found');
+  return res.send(genre);
+});
+
+// @route   GET api/genres/:id
+// @desc    Get all genres
+// @access  Public
+router.delete('/:id', async (req, res) => {
+  // delete genre
+  const genre = await Genre.findByIdAndRemove(req.params.id);
+
+  if (!genre) return res.status(404).send('Genre ID not found');
+  res.send(genre);
+});
+```
 
 8.7- Project.zip
 109. Project- Build the Customers API
