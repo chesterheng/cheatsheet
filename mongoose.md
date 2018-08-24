@@ -238,18 +238,145 @@ router.delete('/:id', async (req, res) => {
 #### Mongoose- Modeling Relationships Between Connected Data
 ##### Modelling Relationships
 
-##### Referencing Documents
+##### Referencing Documents (Normalization) -> CONSISTENCY
 ##### Population
-##### Embedding Documents
+```javascript
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const authorSchema = new mongoose.Schema({ name: String, bio: String, website: String });
+const Author = mongoose.model('Author', authorSchema);
+
+const courseSchema = new mongoose.Schema({
+  name: String,
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'Author' }
+});
+const Course = mongoose.model('Course', courseSchema);
+
+const createAuthor = async (name, bio, website) => { 
+  const author = new Author({ name, bio, website });
+  const result = await author.save();
+  console.log(result);
+}
+
+const createCourse = async (name, author) => {
+  const course = new Course({ name, author }); 
+  const result = await course.save();
+  console.log(result);
+}
+
+const listCourses = async () => { 
+  const courses = await Course
+    .find()
+    .populate('author', 'name -_id')
+    .select('name author');
+  console.log(courses);
+}
+
+createAuthor('Mosh', 'My bio', 'My Website');
+createCourse('Node Course', 'authorId')
+listCourses();
+```
+
+##### Embedding Documents (Denormalization) -> PERFORMANCE
+```javascript
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const authorSchema = new mongoose.Schema({ name: String, bio: String, website: String });
+const Author = mongoose.model('Author', authorSchema);
+
+const courseSchema = new mongoose.Schema({
+  name: String,
+  author: { type: authorSchema, required: true }
+});
+const Course = mongoose.model('Course', courseSchema);
+
+const createCourse = async (name, author) => {
+  const course = new Course({ name, author }); 
+  const result = await course.save();
+  console.log(result);
+}
+
+const listCourses = async () => { 
+  const courses = await Course.find();
+  console.log(courses);
+}
+
+const updateAuthor = courseId => {
+  const course = await Course.findById(courseId);
+  course.author.name = 'Mosh Hamedani';
+  course.save();
+}
+
+const updateAuthor = courseId => {
+  const course = await Course.update({ _id: courseId }, {
+    $set: {
+      'author.name': 'John Smith'
+    }
+    $unset: {
+      'author': ''
+    }
+  });
+}
+
+const author = new Author('Mosh', 'My bio', 'My Website');
+createCourse('Node Course', author);
+listCourses();
+```
+
 ##### Using an Array of Sub-documents
+```javascript
+const courseSchema = new mongoose.Schema({
+  name: String,
+  author: [authorSchema]
+});
+const Course = mongoose.model('Course', courseSchema);
 
-##### Project- Build the Movies API
+const createCourse = async (name, authors) => {
+  const course = new Course({ name, authors }); 
+  const result = await course.save();
+  console.log(result);
+}
 
-##### Project- Build the Movies API.zip
-##### Project- Build the Rentals API
+const addAuthor = async (courseId, author) => {
+  const course = await Course.findById(courseId);
+  course.authors.push(author);
+  await course.save();
+}
 
-##### Project- Build the Rentals API.zip
+const removeAuthor = async (courseId, authorId) => {
+  const course = await Course.findById(courseId);
+  const author = course.authors.id(authorId);
+  author.remove();
+  await course.save();
+}
+
+createCourse('Node Course', [
+  new Author({ name: 'Mosh' }),
+  new Author({ name: 'John' })
+]);
+```
+
 ##### Transactions
+* 2 phase commit
+* npm i fawn
+const Fawn = required('fawn');
+
+Fawn.init(mongoose);
+
+try {
+  new Fawn.Task()
+    .save('rentals', rental)
+    .update('movies', { _id: movie._id }, {
+      $inc: { numberInStock: -1 }
+    })
+    .run();
+    
+    res.send(rental);
+} catch(err) {
+  res.status(500).send('Something failed.');
+}
 
 ##### ObjectID
 
