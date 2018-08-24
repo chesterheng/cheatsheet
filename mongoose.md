@@ -7,11 +7,28 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const courseSchema = new Schema({
-  name: { type: String, required: true },
+  name: { 
+    type: String, 
+    required: true,
+    minLength: 5,
+    maxLength: 255,
+    // match: /pattern/
+  },
+  category: {
+    type: String,
+    required: true,
+    enum: ['web', 'mobile', 'network']
+  }
   author: String,
   tags: [String],
   date: { type: Date, default: Date.now },
-  isPublished: Boolean
+  isPublished: Boolean,
+  price: {
+    type: Number,
+    required: function () { return this.isPublished },
+    min: 10,
+    max: 200
+  }
 });
 
 const Course = mongoose.model("Course", courseSchema);
@@ -27,19 +44,66 @@ async createCourse = () => {
   try {
       const result = await course.save();
     };
-  } catch(err) {
-    console.log(err.message)
+  } catch(ex) {
+    console.log(ex.message)
   }
 }
 ```
 
-
-
 ##### Custom Validators
+```javascript
+const courseSchema = new Schema({
+  tags: {
+    type: Array,
+    validate: {
+      validator: function(v) {
+        return v && v.length > 0;
+      },
+      message: 'A course must have at least one tag.'
+    }
+  },
+});
+```
 
 ##### Async Validators
+```javascript
+const courseSchema = new Schema({
+  tags: {
+    type: Array,
+    validate: {
+      isAsync: true,
+      validator: function(v, callback) {
+        setTimeout(() => {
+          // Do some async work
+          const result = v && v.length > 0;
+          callback(result);
+        }, 1000);
+      },
+      message: 'A course must have at least one tag.'
+    }
+  },
+});
+```
 
 ##### Validation Errors
+```javascript
+async createCourse = () => {
+  const course = new Course({
+    name: 'Node JS Course',
+    author: 'John',
+    tags: ['node', 'express'],
+    isPublished: true
+  });
+
+  try {
+      const result = await course.save();
+    };
+  } catch(ex) {
+    for(field in ex.errors)
+      console.log(ex.errors[field].message);
+  }
+}
+```
 
 ##### SchemaType Options
 
