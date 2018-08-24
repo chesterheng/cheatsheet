@@ -106,6 +106,37 @@ async createCourse = () => {
 ```
 
 ##### SchemaType Options
+```javascript
+const courseSchema = new Schema({
+  name: { 
+    type: String, 
+    required: true,
+    minLength: 5,
+    maxLength: 255,
+    // match: /pattern/
+  },
+  category: {
+    type: String,
+    required: true,
+    enum: ['web', 'mobile', 'network'],
+    lowercase: true,
+    // uppercase: true,
+    trim: true
+  }
+  author: String,
+  tags: [String],
+  date: { type: Date, default: Date.now },
+  isPublished: Boolean,
+  price: {
+    type: Number,
+    required: function () { return this.isPublished },
+    min: 10,
+    max: 200,
+    get: v => Math.round(v),
+    set: v => Math.round(v)
+  }
+});
+```
 
 ##### Add Persistence to Genres API
 
