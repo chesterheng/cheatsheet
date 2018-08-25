@@ -378,10 +378,51 @@ try {
   res.status(500).send('Something failed.');
 }
 
-##### ObjectID
+##### ObjectID (12 bytes)
+* 4 bytes: timestamp
+* 3 bytes: machine ID
+* 2 bytes: process ID
+* 3 bytes: counter
+* Driver -> MongoDB
+```javascript
+const mongoose = require('mongoose');
+
+const id = new mongoose.Types.ObjectId();
+console.log(id.getTimestamp());
+
+const isValid = mongoose.Types.ObjectId.isValid('1234');
+console.log(isValid);
+```
 
 ##### Validating Object ID's
-
-##### Validating ObjectIDs.zip
 ##### A Better Implementation
+* edit server.js
+```javascript
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
+```
+* edit models\rental.js
+```javascript
+const validateRental = (rental) => {
+  const schema = {
+    customerId: Joi.objectId().required(),
+    movieId: Joi.objectId().required()
+  };
 
+  return Joi.validate(rental, schema);
+}
+```
+* edit routes\movies.js
+```javascript
+  const movie = new Movie({ 
+    title: req.body.title,
+    genre: {
+      _id: genre._id,
+      name: genre.name
+    },
+    numberInStock: req.body.numberInStock,
+    dailyRentalRate: req.body.dailyRentalRate
+  });
+  await movie.save();
+  ```
+  
