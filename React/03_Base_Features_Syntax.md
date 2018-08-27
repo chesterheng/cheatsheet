@@ -20,15 +20,55 @@
   * npm start
 
 ##### Understanding the Folder Structure
-Understanding Component Basics
-components-learning-card.pdf
+* edit public\index.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+##### Understanding Component Basics
+* edit src\index.js
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+registerServiceWorker();
+```
+* edit src\App.js
+```javascript
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+       <h1>Welcome to React</h1>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
 Understanding JSX
 JSX Restrictions
 
 ##### Creating a Functional Component
 * "presentational", "dumb" or "stateless" components
+* edit Person/Person.js
 ```javascript
-const cmp = () => { return <div>some JSX</div> }
+import React from 'react';
+const person = () => <p>I am a Person</p>;
+export default person;
 ```
 
 ##### class-based Components & JSX Cheat Sheet
@@ -42,22 +82,63 @@ class Cmp extends Component {
  } 
 }
 ```
-34. Working with Components & Re-Using Them
-35. Outputting Dynamic Content
-36. Working with Props
-props-learning-card.pdf
-37. Understanding the Children Property
-base-syntax--01-props-custom-cmp.zip
-38. Understanding & Using State
-39. Props & State
-props&state.pdf
-40. Handling Events with Methods
-3:45
-41. To Which Events Can You Listen?
-42. Manipulating the State
-4:56
-state-learning-card.pdf
-43. Functional (Stateless) vs class (Stateful) Components
+##### Working with Components & Re-Using Them
+
+```javascript
+import React from 'react';
+
+const person = props => <p>I am Max and I am {Math.floor(Math.random() * 30)} years old!</p>;
+
+export default person;
+```
+
+##### Outputting Dynamic Content
+```javascript
+import React from 'react';
+
+const person = props => <p>I am Max and I am {Math.floor(Math.random() * 30)} years old!</p>;
+
+export default person;
+```
+
+##### Working with Props
+* edit Person/Person.js
+```javascript
+import React from 'react';
+
+const person = props => <p>I am {props.name} and I am {props.age} years old!</p>;
+
+export default person;
+```
+* edit App.js
+```javascript
+import React from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component { 
+ render () {
+  return (
+   <div className="App">
+    <Person name="Max" age="28"/>
+   </div>
+  ); 
+ } 
+}
+
+export default App;
+```
+
+##### Understanding the Children Property
+
+##### Understanding & Using State
+##### Props & State
+##### Handling Events with Methods
+
+##### To Which Events Can You Listen?
+##### Manipulating the State
+
+##### Functional (Stateless) vs class (Stateful) Components
 3:33
 44. Passing Method References Between Components
 7:05
