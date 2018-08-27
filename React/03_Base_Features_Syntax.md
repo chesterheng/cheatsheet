@@ -75,7 +75,7 @@ export default App;
 ```
 
 ##### JSX Restrictions
-* <div className="App">
+* className="App"
 * wrap everything into one root element per component
 
 
@@ -102,7 +102,7 @@ class Cmp extends Component {
 ##### Working with Components & Re-Using Them
 * edit App.js
 ```javascript
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
@@ -133,7 +133,7 @@ const person = props => <p>I am {props.name} and I am {props.age} years old!</p>
 export default person;
 ```
 ```javascript
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
@@ -152,7 +152,6 @@ export default App;
 
 ##### Understanding the Children Property
 ```javascript
-
 /*
 props: = {
  age: "28"
@@ -160,7 +159,6 @@ props: = {
  name: "Max"
 }
 */
-
 import React from 'react';
 const person = props => {
  return(
@@ -173,7 +171,7 @@ const person = props => {
 export default person;
 ```
 ```javascript
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
@@ -191,26 +189,160 @@ export default App;
 ```
 
 ##### Understanding & Using State
-##### Props & State
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component { 
+ state = {
+  persons: [
+   { name: 'Max', age: 28 },
+   { name: 'Manu', age: 29 },
+   { name: 'Step', age: 26 }
+  ]
+ }
+ 
+ render () {
+  return (
+   <div className="App">
+    <button>Switch Name</button>
+    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobbies: Racing</Person>
+    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+   </div>
+  ); 
+ } 
+}
+
+export default App;
+```
+
 ##### Handling Events with Methods
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component { 
+ state = {
+  persons: [
+   { name: 'Max', age: 28 },
+   { name: 'Manu', age: 29 },
+   { name: 'Step', age: 26 }
+  ]
+ }
+ 
+ switchNameHandler = () => {
+  console.log('Was clicked!');
+ }
+ 
+ render () {
+  return (
+   <div className="App">
+    <button onClick={this.switchNameHandler}>Switch Name</button>
+    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobbies: Racing</Person>
+    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+   </div>
+  ); 
+ } 
+}
+
+export default App;
+```
 
 ##### To Which Events Can You Listen?
-##### Manipulating the State
+* https://reactjs.org/docs/events.html#supported-events
 
-##### Functional (Stateless) vs class (Stateful) Components
-3:33
-44. Passing Method References Between Components
-7:05
+##### Manipulating the State
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component { 
+ state = {
+  persons: [
+   { name: 'Max', age: 28 },
+   { name: 'Manu', age: 29 },
+   { name: 'Step', age: 26 }
+  ]
+ }
+ 
+ switchNameHandler = () => {
+  console.log('Was clicked!');
+  this.setState({
+   persons: [
+    { name: 'Min', age: 24 },
+    { name: 'Manu', age: 29 },
+    { name: 'Mary', age: 36 }
+   ]
+  })
+ }
+ 
+ render () {
+  return (
+   <div className="App">
+    <button onClick={this.switchNameHandler}>Switch Name</button>
+    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobbies: Racing</Person>
+    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+   </div>
+  ); 
+ } 
+}
+
+export default App;
+```
+
+##### Passing Method References Between Components
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component { 
+ state = {
+  persons: [
+   { name: 'Max', age: 28 },
+   { name: 'Manu', age: 29 },
+   { name: 'Step', age: 26 }
+  ]
+ }
+ 
+ switchNameHandler = () => {
+  console.log('Was clicked!');
+  this.setState({
+   persons: [
+    { name: 'Min', age: 24 },
+    { name: 'Manu', age: 29 },
+    { name: 'Mary', age: 36 }
+   ]
+  })
+ }
+ 
+ render () {
+  return (
+   <div className="App">
+    <button onClick={this.switchNameHandler}>Switch Name</button>
+    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobbies: Racing</Person>
+    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+   </div>
+  ); 
+ } 
+}
+
+export default App;
+```
 base-syntax--02-state-events.zip
-45. Adding Two Way Binding
-6:51
-46. Adding Styling with Stylesheets
-5:28
-47. Working with Inline Styles
-4:15
-Assignment 1: Time to Practice - The Base Syntax
-48. Useful Resources & Links
-base-syntax--01-props-custom-cmp.zip
-base-syntax--02-state-events.zip
-base-syntax--03-finished.zip
-Section: 4
+##### Adding Two Way Binding
+
+##### Adding Styling with Stylesheets
+
+##### Working with Inline Styles
+
+##### Assignment 1: Time to Practice - The Base Syntax
+##### Useful Resources & Links
+
