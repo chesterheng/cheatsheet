@@ -44,7 +44,6 @@ registerServiceWorker();
 * edit src\App.js
 ```javascript
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -59,8 +58,26 @@ class App extends Component {
 
 export default App;
 ```
-Understanding JSX
-JSX Restrictions
+
+##### Understanding JSX
+return React.createElement('div', {className: App}, React.createElement('h1', null, 'Welcome to React'));
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+
+class App extends Component {
+  render() {
+    return React.createElement('div', {className: App}, React.createElement('h1', null, 'Welcome to React'));
+  }
+}
+
+export default App;
+```
+
+##### JSX Restrictions
+* <div className="App">
+* wrap everything into one root element per component
+
 
 ##### Creating a Functional Component
 * "presentational", "dumb" or "stateless" components
@@ -83,34 +100,38 @@ class Cmp extends Component {
 }
 ```
 ##### Working with Components & Re-Using Them
-
+* edit App.js
 ```javascript
 import React from 'react';
+import './App.css';
+import Person from './Person/Person';
 
-const person = props => <p>I am Max and I am {Math.floor(Math.random() * 30)} years old!</p>;
+class App extends Component { 
+ render () {
+  return (
+   <div className="App">
+    <Person />
+   </div>
+  ); 
+ } 
+}
 
-export default person;
+export default App;
 ```
 
 ##### Outputting Dynamic Content
 ```javascript
 import React from 'react';
-
 const person = props => <p>I am Max and I am {Math.floor(Math.random() * 30)} years old!</p>;
-
 export default person;
 ```
 
 ##### Working with Props
-* edit Person/Person.js
 ```javascript
 import React from 'react';
-
 const person = props => <p>I am {props.name} and I am {props.age} years old!</p>;
-
 export default person;
 ```
-* edit App.js
 ```javascript
 import React from 'react';
 import './App.css';
@@ -130,6 +151,44 @@ export default App;
 ```
 
 ##### Understanding the Children Property
+```javascript
+
+/*
+props: = {
+ age: "28"
+ children: "My Hobbies: Racing"
+ name: "Max"
+}
+*/
+
+import React from 'react';
+const person = props => {
+ return(
+   <div>
+    <p>I am {props.name} and I am {props.age} years old!</p>
+    <p>{props.children}</p>
+   </div> 
+  )
+};
+export default person;
+```
+```javascript
+import React from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component { 
+ render () {
+  return (
+   <div className="App">
+    <Person name="Max" age="28">My Hobbies: Racing</Person>
+   </div>
+  ); 
+ } 
+}
+
+export default App;
+```
 
 ##### Understanding & Using State
 ##### Props & State
