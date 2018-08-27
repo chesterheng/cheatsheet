@@ -15,7 +15,8 @@
   "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
   "editor.formatOnSave": true,
   "workbench.iconTheme": "vscode-icons",
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "prettier.jsxBracketSameLine": true
 }
 ```
 * View > Terminal
