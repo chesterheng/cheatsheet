@@ -28,7 +28,7 @@
 ```
 ```javascript
 /* 
-Object {
+props = {
   age: "28",
   name: "Max"
 }
@@ -42,6 +42,7 @@ const Person = props => {
   );
 }
 
+// JSX must have only one root element
 const app = (
   <div>
      <Person name="Max" age="28" />
@@ -53,14 +54,28 @@ ReactDOM.render(app, document.querySelector('#app'));
 ```
 
 ##### Why Should we Choose React?
-2:03
-7. React Alternatives
-1:11
-8. Understanding Single Page Applications and Multi Page Applications
-3:38
-9. Course Outline
-7:28
-10. How to get the Most out of This Course
-2:29
-11. Useful Resources & Links
-Section: 2
+* Manage UI State
+* Focus on business logic
+* Huge ecosystems
+
+##### Understanding Single Page Applications and Multi Page Applications
+* Single Page Applications
+  * Only ONE HTML Page, Content is (re)rendered on CLient
+  * Typically only ONE ReactDOM.render() call
+
+* Multi Page Applications
+  * Multiple HTML Pages, Content is rendered in Server
+  * One ReactDOM.render() call per widget
+
+##### Course Outline
+* React Basic
+* Debugging
+* Styling Components
+* Components Deep Dive
+* HTTP Requests
+* Routing
+* Forms and Validation
+* Redux
+* Authentication
+* Testing
+* Deployment
