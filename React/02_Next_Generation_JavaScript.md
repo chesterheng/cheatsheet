@@ -1,25 +1,53 @@
 #### Refreshing Next Generation JavaScript
+* https://jsbin.com
 
-#### Understanding "let" and "const"
-3:05
-14. Arrow Functions
-5:27
-15. Exports and Imports
-4:43
-16. Understanding Classes
-4:37
-17. Classes, Properties and Methods
-3:03
-18. The Spread & Rest Operator
-6:30
-19. Destructuring
-3:13
-20. Reference and Primitive Types Refresher
-4:26
-21. Refreshing Array Functions
-2:45
+##### Understanding "let" and "const"
+* let: variable values
+* const: constant values
+
+##### Arrow Functions
+```javascript
+function myFnc() {
+  ...
+}
+
+// no issues with this keyword
+const myFnc = () => ... ;
+```
+
+##### Exports and Imports
+* person.js
+```javascript
+const person = {
+  name: 'Max'
+}
+
+export default person;
+```
+* utility.js
+```javascript
+export const clean = () => { ... };
+export const baseData = 10;
+```
+* app.js
+```javascript
+import person from './person';
+import { clean, baseData } from './utility';
+```
+
+##### Understanding Classes
+
+
+##### Classes, Properties and Methods
+
+##### The Spread & Rest Operator
+
+##### Destructuring
+
+##### Reference and Primitive Types Refresher
+
+##### Refreshing Array Functions
 22. Wrap Up
-0:52
 23. Next-Gen JavaScript - Summary
 next-gen-js-summary.pdf
 24. JS Array Functions
