@@ -24,7 +24,7 @@ const Person = props => {
   );
 }
 
-var app = (
+const app = (
   <div>
      <Person name="Max" age="28" />
      <Person name="Manu" age="29" />
