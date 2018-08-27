@@ -158,4 +158,37 @@ printName({name: 'Max', age: 28}); // prints 'Max')
 ##### Reference and Primitive Types Refresher
 
 ##### Refreshing Array Functions
+```javascript
+const courses = [
+  { id: 1, name: 'course 1' },
+  { id: 2, name: 'course 2' },
+  { id: 3, name: 'course 3' }
+];
 
+// Read course
+const course = courses.find(c => c.id === parseInt(req.params.id));
+
+// Create course
+const course = {
+  id: courses.length + 1,
+  name: req.body.name
+};
+courses.push(course);
+  
+// Update course
+const course = courses.find(c => c.id === parseInt(req.params.id));
+course.name = req.body.name;
+
+// Delete course
+const course = courses.find(c => c.id === parseInt(req.params.id));
+const index = courses.indexOf(course);
+courses.splice(index, 1);
+```
+* map()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+* find()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+* findIndex()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
+* filter()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+* reduce()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce?v=b
+* concat()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat?v=b
+* slice()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+* splice()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
