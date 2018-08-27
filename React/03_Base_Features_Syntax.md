@@ -20,31 +20,35 @@
   * npm start
 
 ##### Understanding the Folder Structure
-8:11
-ide-setup.pdf
-29. Understanding Component Basics
-5:32
+Understanding Component Basics
 components-learning-card.pdf
-30. Understanding JSX
-5:38
-31. JSX Restrictions
-3:09
-32. Creating a Functional Component
-8:09
-33. Components & JSX Cheat Sheet
-components.pdf
+Understanding JSX
+JSX Restrictions
+
+##### Creating a Functional Component
+* "presentational", "dumb" or "stateless" components
+```javascript
+const cmp = () => { return <div>some JSX</div> }
+```
+
+##### class-based Components & JSX Cheat Sheet
+* "containers", "smart" or "stateful" components
+```javascript
+class Cmp extends Component { 
+ render () {
+  return (
+   <div>some JSX</div>
+  ); 
+ } 
+}
+```
 34. Working with Components & Re-Using Them
-1:47
 35. Outputting Dynamic Content
-3:02
 36. Working with Props
-4:07
 props-learning-card.pdf
 37. Understanding the Children Property
-2:56
 base-syntax--01-props-custom-cmp.zip
 38. Understanding & Using State
-6:53
 39. Props & State
 props&state.pdf
 40. Handling Events with Methods
