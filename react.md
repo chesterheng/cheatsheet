@@ -1,3 +1,42 @@
+##### Writing our First React Code
+* https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js 
+* https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js 
+```html
+<div id="app"></div>
+```
+```css
+.person {
+  display: inline-block;
+  margin: 10px;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 2px #ccc;
+  width: 200px;
+  padding: 20px;
+}
+```
+```javascript
+const Person = props => {
+  return (
+    <div className="person">
+      <h1>{props.name}</h1>
+      <p>Your Age: {props.age}</p>
+    </div>
+  );
+}
+
+var app = (
+  <div>
+     <Person name="Max" age="28" />
+     <Person name="Manu" age="29" />
+  </div>
+);
+
+ReactDOM.render(app, document.querySelector('#app'));
+```
+
+
+
+
 ##### Getting Started With React
 * npm i -g create-react-app
 * npm i -g npm (update all npm to latest version)
