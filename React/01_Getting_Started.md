@@ -10,6 +10,11 @@
 ##### Writing our First React Code
 ```html
 <div id="app"></div>
+
+<div class="person">
+  <h1>Max</h1>
+  <p>Your Age: 28</p>
+</div>
 ```
 ```css
 .person {
@@ -22,6 +27,12 @@
 }
 ```
 ```javascript
+/* 
+Object {
+  age: "28",
+  name: "Max"
+}
+*/
 const Person = props => {
   return (
     <div className="person">
