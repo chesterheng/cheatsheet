@@ -327,7 +327,12 @@ class App extends Component {
    <div className="App">
     <button onClick={this.switchNameHandler}>Switch Name</button>
     <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My Hobbies: Racing</Person>
+    <Person
+      name={this.state.persons[1].name}
+      age={this.state.persons[1].age}
+      click={this.switchNameHandler}>
+      My Hobbies: Racing
+    </Person>
     <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
    </div>
   ); 
@@ -336,7 +341,20 @@ class App extends Component {
 
 export default App;
 ```
-base-syntax--02-state-events.zip
+```javascript
+import React from 'react';
+const person = props => {
+  return (
+    <div>
+      <p onClick={props.click}>
+        I am {props.name} and I am {props.age} years old!
+      </p>
+      <p>{props.children}</p>
+    </div>
+  );
+};
+export default person;
+```
 ##### Adding Two Way Binding
 
 ##### Adding Styling with Stylesheets
