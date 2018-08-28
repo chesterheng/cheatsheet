@@ -370,6 +370,7 @@ export default person;
 ```
 
 ##### Adding Styling with Stylesheets
+##### Working with Inline Styles
 * edit src\Person\Person.css
 ```css
 .Person {
@@ -396,9 +397,76 @@ const person = props => {
 };
 export default person;
 ```
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person';
 
-##### Working with Inline Styles
+class App extends Component {
+  state = {
+    persons: [
+      { name: 'Max', age: 28 },
+      { name: 'Manu', age: 29 },
+      { name: 'Step', age: 26 }
+    ]
+  };
 
-##### Assignment 1: Time to Practice - The Base Syntax
+  switchNameHandler = newName => {
+    console.log('Was clicked!');
+    this.setState({
+      persons: [
+        { name: newName, age: 24 },
+        { name: 'Manu', age: 29 },
+        { name: 'Mary', age: 36 }
+      ]
+    });
+  };
+
+  nameChangedHandler = event => {
+    this.setState({
+      persons: [
+        { name: 'Max', age: 24 },
+        { name: event.target.value, age: 29 },
+        { name: 'Mary', age: 25 }
+      ]
+    });
+  };
+
+  render() {
+    const style = {
+      backgroundColor: 'cyan',
+      font: 'inherit',
+      border: '1x solid blue',
+      padding: '8px'
+    };
+
+    return (
+      <div className="App">
+        <button
+          style={style}
+          onClick={this.switchNameHandler.bind(this, 'Jane')}>
+          Switch Name
+        </button>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={() => this.switchNameHandler('John')}
+          changed={this.nameChangedHandler}>
+          My Hobbies: Racing
+        </Person>
+        <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
 ##### Useful Resources & Links
-
+* create-react-app: https://github.com/facebookincubator/create-react-app
+* Introducing JSX: https://reactjs.org/docs/introducing-jsx.html
+* Rendering Elements: https://reactjs.org/docs/rendering-elements.html
+* Components & Props: https://reactjs.org/docs/components-and-props.html
+* Listenable Events: https://reactjs.org/docs/events.html
