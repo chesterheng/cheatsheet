@@ -84,7 +84,9 @@ export default App;
 * edit Person/Person.js
 ```javascript
 import React from 'react';
+
 const person = () => <p>I am a Person</p>;
+
 export default person;
 ```
 
@@ -111,6 +113,7 @@ class App extends Component {
   return (
    <div className="App">
     <Person />
+    <Person />
    </div>
   ); 
  } 
@@ -122,16 +125,13 @@ export default App;
 ##### Outputting Dynamic Content
 ```javascript
 import React from 'react';
-const person = props => <p>I am Max and I am {Math.floor(Math.random() * 30)} years old!</p>;
+
+const person = () => <p>I am Max and I am {Math.floor(Math.random() * 30)} years old!</p>;
+
 export default person;
 ```
 
 ##### Working with Props
-```javascript
-import React from 'react';
-const person = props => <p>I am {props.name} and I am {props.age} years old!</p>;
-export default person;
-```
 ```javascript
 import React, { Component } from 'react';
 import './App.css';
@@ -141,6 +141,7 @@ class App extends Component {
  render () {
   return (
    <div className="App">
+    // props: = { age: "28", name: "Max" }
     <Person name="Max" age="28"/>
    </div>
   ); 
@@ -149,16 +150,34 @@ class App extends Component {
 
 export default App;
 ```
+```javascript
+import React from 'react';
+
+const person = props => <p>I am {props.name} and I am {props.age} years old!</p>;
+
+export default person;
+```
 
 ##### Understanding the Children Property
 ```javascript
-/*
-props: = {
- age: "28"
- children: "My Hobbies: Racing"
- name: "Max"
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component { 
+ render () {
+  return (
+   <div className="App">
+    // props: = { age: "28", children: "My Hobbies: Racing", name: "Max" }
+    <Person name="Max" age="28">My Hobbies: Racing</Person>
+   </div>
+  ); 
+ } 
 }
-*/
+
+export default App;
+```
+```javascript
 import React from 'react';
 const person = props => {
  return(
@@ -170,23 +189,7 @@ const person = props => {
 };
 export default person;
 ```
-```javascript
-import React, { Component } from 'react';
-import './App.css';
-import Person from './Person/Person';
 
-class App extends Component { 
- render () {
-  return (
-   <div className="App">
-    <Person name="Max" age="28">My Hobbies: Racing</Person>
-   </div>
-  ); 
- } 
-}
-
-export default App;
-```
 
 ##### Understanding & Using State
 ```javascript
@@ -195,13 +198,7 @@ import './App.css';
 import Person from './Person/Person';
 
 class App extends Component { 
- state = {
-  persons: [
-   { name: 'Max', age: 28 },
-   { name: 'Manu', age: 29 },
-   { name: 'Step', age: 26 }
-  ]
- }
+ state = { persons: [ { name: 'Max', age: 28 }, { name: 'Manu', age: 29 }, { name: 'Step', age: 26 } ] }
  
  render () {
   return (
@@ -225,17 +222,9 @@ import './App.css';
 import Person from './Person/Person';
 
 class App extends Component { 
- state = {
-  persons: [
-   { name: 'Max', age: 28 },
-   { name: 'Manu', age: 29 },
-   { name: 'Step', age: 26 }
-  ]
- }
+ state = { persons: [ { name: 'Max', age: 28 }, { name: 'Manu', age: 29 }, { name: 'Step', age: 26 } ] }
  
- switchNameHandler = () => {
-  console.log('Was clicked!');
- }
+ switchNameHandler = () => console.log('Was clicked!');
  
  render () {
   return (
@@ -262,24 +251,12 @@ import './App.css';
 import Person from './Person/Person';
 
 class App extends Component { 
- state = {
-  persons: [
-   { name: 'Max', age: 28 },
-   { name: 'Manu', age: 29 },
-   { name: 'Step', age: 26 }
-  ]
- }
+ state = { persons: [ { name: 'Max', age: 28 }, { name: 'Manu', age: 29 }, { name: 'Step', age: 26 } ] };
  
  switchNameHandler = () => {
   console.log('Was clicked!');
-  this.setState({
-   persons: [
-    { name: 'Min', age: 24 },
-    { name: 'Manu', age: 29 },
-    { name: 'Mary', age: 36 }
-   ]
-  })
- }
+  this.setState( { persons: [ { name: 'Jane', age: 28 }, { name: 'Manu', age: 30 }, { name: 'Step', age: 26 } ] });
+ };
  
  render () {
   return (
@@ -302,41 +279,27 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
-class App extends Component { 
- state = {
-  persons: [
-   { name: 'Max', age: 28 },
-   { name: 'Manu', age: 29 },
-   { name: 'Step', age: 26 }
-  ]
- }
- 
- switchNameHandler = () => {
-  console.log('Was clicked!');
-  this.setState({
-   persons: [
-    { name: 'Min', age: 24 },
-    { name: 'Manu', age: 29 },
-    { name: 'Mary', age: 36 }
-   ]
-  })
- }
- 
- render () {
-  return (
-   <div className="App">
-    <button onClick={this.switchNameHandler}>Switch Name</button>
-    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-    <Person
-      name={this.state.persons[1].name}
-      age={this.state.persons[1].age}
-      click={this.switchNameHandler}>
-      My Hobbies: Racing
-    </Person>
-    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
-   </div>
-  ); 
- } 
+class App extends Component {
+  sstate = { persons: [ { name: 'Max', age: 28 }, { name: 'Manu', age: 29 }, { name: 'Step', age: 26 } ] };
+
+  switchNameHandler = newName => {
+    console.log('Was clicked!');
+    this.setState( { persons: [ { name: 'Jane', age: 28 }, { name: newName, age: 30 }, { name: 'Step', age: 26 } ] });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <button onClick={this.switchNameHandler.bind(this, 'John')}>Switch Name</button>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+        // props = { age: 29, children: "My Hobbies: Racing", click: fn(), name: "Manu" }
+        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={() => this.switchNameHandler('John')}>
+          My Hobbies: Racing
+        </Person>
+        <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+      </div>
+    );
+  }
 }
 
 export default App;
@@ -346,9 +309,7 @@ import React from 'react';
 const person = props => {
   return (
     <div>
-      <p onClick={props.click}>
-        I am {props.name} and I am {props.age} years old!
-      </p>
+      <p onClick={props.click}>I am {props.name} and I am {props.age} years old!</p>
       <p>{props.children}</p>
     </div>
   );
@@ -356,8 +317,85 @@ const person = props => {
 export default person;
 ```
 ##### Adding Two Way Binding
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person';
+
+class App extends Component {
+  state = { persons: [ { name: 'Max', age: 28 }, { name: 'Manu', age: 29 }, { name: 'Step', age: 26 } ] };
+
+  switchNameHandler = newName => {
+    console.log('Was clicked!');
+    this.setState({ persons: [ { name: newName, age: 24 }, { name: 'Manu', age: 29 }, { name: 'Mary', age: 36 } ] });
+  };
+
+  nameChangedHandler = event => {
+    this.setState({ persons: [ { name: 'Max', age: 24 }, { name: event.target.value, age: 29 }, { name: 'Mary', age: 25 } ] });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <button onClick={this.switchNameHandler.bind(this, 'Jane')}>Switch Name</button>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+        // props = { age: 29, changed: fn(), children: "My Hobbies: Racing", click: click(), name: "Manu" }
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={() => this.switchNameHandler('John')}
+          changed={this.nameChangedHandler}>
+          My Hobbies: Racing
+        </Person>
+        <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+```javascript
+import React from 'react';
+const person = props => {
+  return (
+    <div>
+      <p onClick={props.click}>I am {props.name} and I am {props.age} years old!</p>
+      <p>{props.children}</p>
+      <input type="text" onChange={props.changed} value={props.name} />
+    </div>
+  );
+};
+export default person;
+```
 
 ##### Adding Styling with Stylesheets
+* edit src\Person\Person.css
+```css
+.Person {
+  width: 60%;
+  margin: auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  padding: 16px;
+  text-align: center;
+}
+```
+```javascript
+import React from 'react';
+import './Person.css';
+
+const person = props => {
+  return (
+    <div className="Person">
+      <p onClick={props.click}>I am {props.name} and I am {props.age} years old!</p>
+      <p>{props.children}</p>
+      <input type="text" onChange={props.changed} value={props.name} />
+    </div>
+  );
+};
+export default person;
+```
 
 ##### Working with Inline Styles
 
