@@ -98,7 +98,7 @@ export default App;
 ```
 
 ##### Outputting Lists
-```
+```javascript
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
