@@ -409,10 +409,6 @@ const person = props => {
 export default person;
 ```
 
-##### Wrap Up
-
-1:55
-Assignment 2: Time to Practice - Lists & Conditionals
-59. Useful Resources & Links
-lists-conditionals--01-conditional-content.zip
-lists-conditionals--lists-finished.zip
+##### Useful Resources & Links
+* Conditional Rendering: https://reactjs.org/docs/conditional-rendering.html
+* Lists & Keys: https://reactjs.org/docs/lists-and-keys.html
