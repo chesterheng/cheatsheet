@@ -84,8 +84,8 @@ export default person;
 ##### Understanding the Component Lifecycle
 
 ##### Converting Stateless to Stateful Components
+```javascript
 import React from 'react';
-
 import Person from './Person/Person';
 
 const persons = (props) => props.persons.map( ( person, index ) => {
@@ -98,7 +98,8 @@ const persons = (props) => props.persons.map( ( person, index ) => {
       } );
 
 export default persons;
-
+```
+```javascript
 import React, { Component } from 'react'
 import Person from './Person/Person';
 
@@ -116,6 +117,7 @@ class Persons extends Component {
 }
 
 export default Persons;
+```
 
 ##### Component Creation Lifecycle in Action
 
