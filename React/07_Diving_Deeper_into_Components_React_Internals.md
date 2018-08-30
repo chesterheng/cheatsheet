@@ -28,7 +28,7 @@ class App extends Component {
   render() {
      return (
       <div className={classes.App}>
-        <h1>Hi, I'm a React App</h1>
+        <h1>Hi, I am a React App</h1>
          <div>
           <Persons
             persons={this.state.persons}
@@ -59,7 +59,7 @@ export default persons;
 const person = props => {
     return (
         <div className={classes.Person}>
-            <p onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
+            <p onClick={props.click}>I am {props.name} and I am {props.age} years old!</p>
             <p>{props.children}</p>
             <input type="text" onChange={props.changed} value={props.name} />
         </div>
