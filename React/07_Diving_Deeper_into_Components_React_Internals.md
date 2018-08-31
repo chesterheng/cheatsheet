@@ -120,6 +120,13 @@ export default Persons;
 ```
 
 ##### Component Creation Lifecycle in Action
+* https://levelup.gitconnected.com/componentdidmakesense-react-lifecycle-explanation-393dcb19e459
+* https://medium.com/@baphemot/understanding-react-react-16-3-component-life-cycle-23129bc7a705
+
+componentDidMount: Starting AJAX calls to load in data for your component
+On mount, add a change listener to DataSource.
+Inside the listener, call setState whenever the data source changes.
+On unmount, remove the change listener.
 
 ##### componentWillUnmount()
 
