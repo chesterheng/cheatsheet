@@ -3,8 +3,16 @@
 ##### Module Introduction
 ##### Planning an App in React - Core Steps
 ##### Planning our App - Layout and Component Tree
-##### Planning the State
+* Layout
+  * Toolbar, SideDrawer, Backdrop
+  * Pages: BurgerBuilder
+* BurgerBuilder
+  * Burger
+    * BurgerIngredient
+    * BurgerIngredient
+    * BurgerIngredient
 
+##### Planning the State
 ##### Setting up the Project
 
 ##### Creating a Layout Component
@@ -203,27 +211,15 @@ export default BurgerIngredient;
 * edit src\components\Burger\Burger.js
 ```javascript
 import React from 'react';
-
 import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = ( props ) => {
-    let transformedIngredients = Object.keys( props.ingredients )
-        .map( igKey => {
-            return [...Array( props.ingredients[igKey] )].map( ( _, i ) => {
-                return <BurgerIngredient key={igKey + i} type={igKey} />;
-            } );
-        } )
-        .reduce((arr, el) => {
-            return arr.concat(el)
-        }, []);
-    if (transformedIngredients.length === 0) {
-        transformedIngredients = <p>Please start adding ingredients!</p>;
-    }
     return (
         <div className={classes.Burger}>
             <BurgerIngredient type="bread-top" />
-            {transformedIngredients}
+            <BurgerIngredient type="cheese" />
+            <BurgerIngredient type="meat" />
             <BurgerIngredient type="bread-bottom" />
         </div>
     );
@@ -231,8 +227,62 @@ const burger = ( props ) => {
 
 export default burger;
 ```
+* edit src\containers\BurgerBuilder\BurgerBuilder.js
+```javascript
+import React, { Component } from 'react';
+import Aux from '../../hoc/Aux';
+import Burger from '../../components/Burger/Burger';
+
+class BurgerBuilder extends Component {
+    render () {
+        return (
+            <Aux>
+                <Burger />
+                <div>Build Controls</div>
+            </Aux>
+        );
+    }
+}
+
+export default BurgerBuilder;
+```
 
 ##### Outputting Burger Ingredients Dynamically
+* edit src\containers\Burger\Burger.js
+```javascript
+import React from 'react';
+
+import classes from './Burger.css';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+
+const burger = props => {
+  // ingredients = { bacon: 1, cheese: 2, meat: 2, salad: 1 }
+  let transformedIngredients = Object.keys(props.ingredients)
+    // transformedIngredients = ["salad", "bacon", "cheese", "meat"]
+    // transformedIngredients = [Array(1), Array(1), Array(2), Array(2)]
+    .map(igKey => {
+      return [...Array(props.ingredients[igKey])].map((_, i) => {
+        return <BurgerIngredient key={igKey + i} type={igKey} />;
+      });
+    })
+    .reduce((arr, el) => {
+      return arr.concat(el);
+    }, []);
+  console.log(transformedIngredients);
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please start adding ingredients!</p>;
+  }
+  return (
+    <div className={classes.Burger}>
+      <BurgerIngredient type="bread-top" />
+      {transformedIngredients}
+      <BurgerIngredient type="bread-bottom" />
+    </div>
+  );
+};
+
+export default burger;
+```
 
 ##### Calculating the Ingredient Sum Dynamically
 
