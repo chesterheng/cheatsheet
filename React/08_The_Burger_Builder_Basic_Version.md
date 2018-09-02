@@ -96,6 +96,7 @@ export default App;
 ```javascript
 import React, { Component } from 'react'
 import Aux from '../../hoc/Aux';
+
 class BurgerBuilder extends Component {
   render() {
     return (
@@ -111,7 +112,7 @@ export default BurgerBuilder;
 ```
 
 ##### Adding a Dynamic Ingredient Component
-* edit src\components\Burger\BurgerIngredients.js
+* edit src\components\Burger\BurgerIngredient\BurgerIngredient.js
 ```javascript
 import React from 'react'
 import classes from './BurgerIngredient.css';
@@ -129,9 +130,6 @@ const burgerIngredient = props => {
           <div className={classes.Seeds2}></div>
         </div>
       );
-      break;
-    case ('meat'):
-      ingredient = <div className={classes.Meat}></div>;
       break;
     case ('meat'):
       ingredient = <div className={classes.Meat}></div>;
@@ -154,13 +152,11 @@ export default burgerIngredient;
 ```
 
 ##### Adding Prop Type Validation
-* edit src\components\Burger\BurgerIngredients.js
+* edit src\components\Burger\BurgerIngredient\BurgerIngredient.js
 ```javascript
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classes from './BurgerIngredient.css';
-
-import React, { Component } from 'react'
 
 class BurgerIngredient extends Component {
   render() {
@@ -176,9 +172,6 @@ class BurgerIngredient extends Component {
             <div className={classes.Seeds2}></div>
           </div>
         );
-        break;
-      case ('meat'):
-        ingredient = <div className={classes.Meat}></div>;
         break;
       case ('meat'):
         ingredient = <div className={classes.Meat}></div>;
@@ -207,22 +200,52 @@ export default BurgerIngredient;
 ```
 
 ##### Starting the Burger Component
+* edit src\components\Burger\Burger.js
+```javascript
+import React from 'react';
+
+import classes from './Burger.css';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+
+const burger = ( props ) => {
+    let transformedIngredients = Object.keys( props.ingredients )
+        .map( igKey => {
+            return [...Array( props.ingredients[igKey] )].map( ( _, i ) => {
+                return <BurgerIngredient key={igKey + i} type={igKey} />;
+            } );
+        } )
+        .reduce((arr, el) => {
+            return arr.concat(el)
+        }, []);
+    if (transformedIngredients.length === 0) {
+        transformedIngredients = <p>Please start adding ingredients!</p>;
+    }
+    return (
+        <div className={classes.Burger}>
+            <BurgerIngredient type="bread-top" />
+            {transformedIngredients}
+            <BurgerIngredient type="bread-bottom" />
+        </div>
+    );
+};
+
+export default burger;
+```
 
 ##### Outputting Burger Ingredients Dynamically
 
 ##### Calculating the Ingredient Sum Dynamically
 
 
-119. Adding the Build Control Component
+##### Adding the Build Control Component
 
-13-build-control-addition.css
-120. Outputting Multiple Build Controls
+##### Outputting Multiple Build Controls
 
-121. Connecting State to Build Controls
+##### Connecting State to Build Controls
 
-122. Removing Ingredients Safely
+##### Removing Ingredients Safely
 
-123. Displaying and Updating the Burger Price
+##### Displaying and Updating the Burger Price
 
 124. Adding the Order Button
 10:39
