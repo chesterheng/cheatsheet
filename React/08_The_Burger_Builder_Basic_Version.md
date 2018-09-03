@@ -259,16 +259,18 @@ const burger = props => {
   // ingredients = { bacon: 1, cheese: 2, meat: 2, salad: 1 }
   let transformedIngredients = Object.keys(props.ingredients)
     // transformedIngredients = ["salad", "bacon", "cheese", "meat"]
-    // transformedIngredients = [Array(1), Array(1), Array(2), Array(2)]
     .map(igKey => {
-      return [...Array(props.ingredients[igKey])].map((_, i) => {
+      return [...Array(props.ingredients[igKey])]
+      // transformedIngredients = [[undefined], [undefined], [undefined], [undefined]]
+      .map((_, i) => {
         return <BurgerIngredient key={igKey + i} type={igKey} />;
       });
     })
+    // transformedIngredients = [[{…}], [{…}], [{…}], [{…}]]
     .reduce((arr, el) => {
       return arr.concat(el);
     }, []);
-  console.log(transformedIngredients);
+    // transformedIngredients = [{…}, {…}, {…}, {…}]
   if (transformedIngredients.length === 0) {
     transformedIngredients = <p>Please start adding ingredients!</p>;
   }
