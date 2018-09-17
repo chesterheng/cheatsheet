@@ -2,6 +2,9 @@
 
 ##### Module Introduction
 ##### Planning an App in React - Core Steps
+* Component Tree / Component Structure
+* Application State (Data)
+* Components vs Containers
 ##### Planning our App - Layout and Component Tree
 * Layout
   * Toolbar, SideDrawer, Backdrop
