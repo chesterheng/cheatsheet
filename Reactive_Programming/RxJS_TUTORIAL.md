@@ -252,3 +252,36 @@ observable1
   .switchMap(event => observable2)
   .subscribe(observer);
 ```
+
+##### BehaviorSubject
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <button>Click Me</button>
+  <div></div>
+  <script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+</body>
+</html>
+```
+
+```javascript
+const observer = {
+  next: value => div.textContent = value,
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const button = document.querySelector('button');
+const div = document.querySelector('div');
+
+const subject = new Rx.BehaviorSubject('Not Clicked!');
+button.addEventListener('click', () => subject.next('Clicked!'));
+
+subject.subscribe(observer);
+```
