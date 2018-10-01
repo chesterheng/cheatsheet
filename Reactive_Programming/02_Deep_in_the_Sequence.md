@@ -57,5 +57,28 @@ const subscription = Rx.Observable
     count: prev.count + 1}), { sum: 0, count: 0 })
   .map(result => result.sum / result.count)
   .subscribe(observer);
-  ```
+```
   
+```javascript
+const subscriptions = [
+  Rx.Observable.of(1, 2, 3),
+  Rx.Observable.of(4, 5, 6),
+  Rx.Observable.of(7, 8, 9)]
+
+const subscription = Rx.Observable
+  .from(subscriptions)
+  .flatMap(value => value)
+  .subscribe(observer);
+```
+
+```javascript
+const subscriptions = [
+  Rx.Observable.of(1, 2, 3),
+  Rx.Observable.of(4, 5, 6),
+  Rx.Observable.of(7, 8, 9)]
+
+const subscription = Rx.Observable
+  .from(subscriptions)
+  .concatAll()
+  .subscribe(observer);
+```
