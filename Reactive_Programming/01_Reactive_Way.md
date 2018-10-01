@@ -76,6 +76,37 @@ const subscription = Rx.Observable
   .subscribe(observer);
 ```
 
+##### Making Ajax Calls with an Observable
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const subscription = Rx.Observable
+  .create(observer => {
+    const req = new XMLHttpRequest();
+    
+    req.open('GET', 'https://jsonplaceholder.typicode.com/todos/1');
+    
+    req.onload = () => {
+      if(req.status === 200) {
+        observer.next(req.response);
+        observer.complete();
+      }
+      else {
+        observer.error(new Error(req.statusText));
+      }
+    };
+    
+    req.onerror = () => observer.error(new Error('Unknown Error'));
+    
+    req.send();
+  })
+  .subscribe(observer);
+```
+
 ##### Creating Observables from Arrays
 ```javascript
 const observer = {
