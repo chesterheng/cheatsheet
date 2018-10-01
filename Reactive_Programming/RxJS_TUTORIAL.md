@@ -135,3 +135,17 @@ observable
   .distinctUntilChanged()
   .subscribe(observer);
 ```
+
+##### scan() vs reduce()
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const observable = Rx.Observable.of(1, 2, 3, 4, 5);
+observable
+  .scan((prev, curr) => prev + curr, 0)
+  .subscribe(observer);
+```
