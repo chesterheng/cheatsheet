@@ -59,3 +59,18 @@ const subscription2 = Rx.Observable
 
 setTimeout(() => subscription1.unsubscribe(), 5000);
 ```
+
+##### RxJS OPERATORS LIKE map() OR throttleTime()
+```javascript
+const observable = Rx.Observable.interval(1000);
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+observable
+  .map(value => 'Number: ' + value)
+  .throttleTime(1900)
+  .subscribe(observer);
+```
