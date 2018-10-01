@@ -75,3 +75,16 @@ const subscription = Rx.Observable
   })
   .subscribe(observer);
 ```
+
+##### Creating Observables from Arrays
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const subscription = Rx.Observable
+  .from(["Simon", "Jen", "Sergi"])
+  .subscribe(observer);
+```
