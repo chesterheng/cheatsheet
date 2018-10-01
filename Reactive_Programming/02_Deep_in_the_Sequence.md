@@ -7,18 +7,13 @@ const observer = {
   complete: () => console.log('completed')
 };
 
+```javascript
 const subscription = Rx.Observable
   .range(1, 3)
   .subscribe(observer);
 ```
 
 ```javascript
-const observer = {
-  next: value => console.log(value),
-  error: error => console.log(error),
-  complete: () => console.log('completed')
-};
-
 const subscriptionA = Rx.Observable
   .interval(200)
   .map(i => 'A' + i);
@@ -34,14 +29,33 @@ Rx.Observable
 
 ##### Basic Sequence Operators
 ```javascript
-const observer = {
-  next: value => console.log(value),
-  error: error => console.log(error),
-  complete: () => console.log('completed')
-};
-
 const subscription = Rx.Observable
   .range(1, 5)
   .map(i => i * 2)
   .subscribe(observer);
 ```
+
+```javascript
+const subscription = Rx.Observable
+  .range(1, 5)
+  .filter(i => i % 2 === 0)
+  .subscribe(observer);
+```
+
+```javascript
+const subscription = Rx.Observable
+  .range(1, 5)
+  .reduce((sum, cur) => sum + cur, 0)
+  .subscribe(observer);
+```
+
+```javascript
+const subscription = Rx.Observable
+  .range(1, 5)
+  .reduce((prev, curr) => ({ 
+    sum: prev.sum + curr, 
+    count: prev.count + 1}), { sum: 0, count: 0 })
+  .map(result => result.sum / result.count)
+  .subscribe(observer);
+  ```
+  
