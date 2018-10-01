@@ -82,3 +82,19 @@ const subscription = Rx.Observable
   .concatAll()
   .subscribe(observer);
 ```
+
+##### Cancelling Sequences
+```javascript
+const subscription1 = Rx.Observable
+  .interval(1000)
+  .subscribe(observer);
+
+const subscription2 = Rx.Observable
+  .interval(1000)
+  .subscribe(observer);
+
+setTimeout(() => {
+  subscription1.unsubscribe();
+  subscription2.unsubscribe();
+}, 2000);
+```
