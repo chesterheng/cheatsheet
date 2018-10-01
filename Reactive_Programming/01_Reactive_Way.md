@@ -145,9 +145,14 @@ const observer = {
 const subscription = Rx.Observable
   .create(async observer => {
     const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-    const data = await response.json();
-    observer.next(data);
-    observer.complete();
+    if(response.status === 200) {
+      const data = await response.json();
+      observer.next(data);
+      observer.complete();
+    }
+    else {
+      observer.error(response.status);
+    }
   })
   .subscribe(observer);
 ```
