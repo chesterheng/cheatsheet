@@ -219,3 +219,36 @@ observable1.mergeMap(
   event1 => observable2.map(event2 => event1.target.value + ' ' + event2.target.value)
 ).subscribe(observer);
 ```
+
+##### switchMap()
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <button>Click Me</button>
+  <script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+</body>
+</html>
+```
+
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const button = document.querySelector('button');
+
+const observable1 = Rx.Observable.fromEvent(button, 'click');
+const observable2 = Rx.Observable.interval(1000);
+
+observable1
+  .switchMap(event => observable2)
+  .subscribe(observer);
+```
