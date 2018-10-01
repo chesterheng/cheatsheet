@@ -74,3 +74,19 @@ observable
   .throttleTime(1900)
   .subscribe(observer);
 ```
+
+##### RxJS SUBJECT (~EventEmitter)
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const subject = new Rx.Subject();
+subject.subscribe(observer);
+subject.subscribe(observer);
+
+subject.next('A new data');
+subject.complete();
+```
