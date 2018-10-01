@@ -107,6 +107,33 @@ const subscription = Rx.Observable
   .subscribe(observer);
 ```
 
+##### Making Fetch Calls with an Observable
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const subscription = Rx.Observable
+  .create(observer => {
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => {
+      if(response.status === 200) {
+        response.json().then(data => {
+          observer.next(data);
+          observer.complete();
+        });      
+      }
+      else {
+        observer.error(response.status);
+      }
+    })
+    .catch(error => observer.error(error));
+  })
+  .subscribe(observer);
+```
+
 ##### Creating Observables from Arrays
 ```javascript
 const observer = {
