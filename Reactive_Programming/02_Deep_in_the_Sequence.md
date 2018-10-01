@@ -31,3 +31,17 @@ Rx.Observable
   .merge(subscriptionA, subscriptionB)
   .subscribe(observer);
 ```
+
+Basic Sequence Operators
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const subscription = Rx.Observable
+  .range(1, 5)
+  .map(i => i * 2)
+  .subscribe(observer);
+```
