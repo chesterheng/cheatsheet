@@ -57,3 +57,21 @@ subscription.subscribe(observer);
 subscription.subscribe(observer);
 subscription.notify('Hello');
 ```
+
+##### Creating Observables
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const subscription = Rx.Observable
+  .create(observer => {
+    observer.next("Simon");
+    observer.next("Jen");
+    observer.next("Sergi");
+    observer.complete();
+  })
+  .subscribe(observer);
+```
