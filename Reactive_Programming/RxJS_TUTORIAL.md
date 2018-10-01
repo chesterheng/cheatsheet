@@ -181,3 +181,41 @@ observable
   .distinctUntilChanged()
   .subscribe(observer);
 ```
+
+##### mergeMap()
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <input type="text" id="first_name">
+  <input type="text" id="last_name">
+  <p>Full Name: <span></span></p>
+<script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+</body>
+</html>
+```
+
+```javascript
+const observer = {
+  next: value => span.textContent = value,
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const first_name = document.querySelector('#first_name');
+const last_name = document.querySelector('#last_name');
+
+const span = document.querySelector('span');
+
+const observable1 = Rx.Observable.fromEvent(first_name, 'input');
+const observable2 = Rx.Observable.fromEvent(last_name, 'input');
+
+observable1.mergeMap(
+  event1 => observable2.map(event2 => event1.target.value + ' ' + event2.target.value)
+).subscribe(observer);
+```
