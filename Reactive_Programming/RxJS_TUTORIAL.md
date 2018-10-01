@@ -149,3 +149,35 @@ observable
   .scan((prev, curr) => prev + curr, 0)
   .subscribe(observer);
 ```
+
+##### pluck()
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <input type="text">
+  <script src="https://unpkg.com/@reactivex/rxjs@5.3.0/dist/global/Rx.js"></script>
+</body>
+</html>
+```
+
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const input = document.querySelector('input');
+const observable = Rx.Observable.fromEvent(input, 'input');
+observable
+  .pluck('target', 'value')
+  .debounceTime(500)
+  .distinctUntilChanged()
+  .subscribe(observer);
+```
