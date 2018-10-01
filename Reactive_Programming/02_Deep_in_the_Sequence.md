@@ -1,4 +1,4 @@
-Visualizing Observables
+##### Visualizing Observables
 
 ```javascript
 const observer = {
@@ -32,7 +32,7 @@ Rx.Observable
   .subscribe(observer);
 ```
 
-Basic Sequence Operators
+##### Basic Sequence Operators
 ```javascript
 const observer = {
   next: value => console.log(value),
