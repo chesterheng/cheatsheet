@@ -29,3 +29,31 @@ Rx.Observable
   .subscribe(observer);
 ```
 
+##### Observer Pattern
+```javascript
+class Observable {
+  listeners = [];
+
+  subscribe = observer => this.listeners.push(observer);
+  
+  unsubscribe = observer => {
+    const index = this.listeners.indexOf(observer);
+    this.listeners.splice(index, 1);
+  }
+  
+  notify = value => {
+    this.listeners.forEach(observer => observer.next(value));
+  }
+}
+
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const subscription = new Observable();
+subscription.subscribe(observer);
+subscription.subscribe(observer);
+subscription.notify('Hello');
+```
