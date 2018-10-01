@@ -100,7 +100,7 @@ const subscription = Rx.Observable
       }
     };
     
-    req.onerror = () => observer.error(new Error('Unknown Error'));
+    req.onerror = error => observer.error(error);
     
     req.send();
   })
