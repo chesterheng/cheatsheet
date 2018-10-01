@@ -134,6 +134,24 @@ const subscription = Rx.Observable
   .subscribe(observer);
 ```
 
+##### Making async/await Calls with an Observable
+```javascript
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const subscription = Rx.Observable
+  .create(async observer => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+    const data = await response.json();
+    observer.next(data);
+    observer.complete();
+  })
+  .subscribe(observer);
+```
+
 ##### Creating Observables from Arrays
 ```javascript
 const observer = {
