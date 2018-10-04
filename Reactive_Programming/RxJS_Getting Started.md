@@ -88,20 +88,6 @@ const timerSubscription = interval(1000)
 fromEvent(button, 'click').subscribe(event => timerSubscription.unsubscribe());
 ```
 
-
-Applying Operators
-
-Categories of Operators
-
-Reading a Marble Diagram
-
-Importing and Using Common Operators
-
-
-
-Controlling the Number of Values Produced
-
-
 ##### Using Operators
 ```javascript
 import { Observable, of, from, fromEvent, concat, interval, throwError } from 'rxjs';
@@ -149,10 +135,248 @@ interval(1000)
 ```
 
 ##### Creating Your Own Operators
+```javascript
+import { Observable, of, from, fromEvent, concat, interval, throwError, Subscription } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
+import { mergeMap, filter, tap, catchError, take, takeUntil, map, mergeAll } from 'rxjs/operators';
+import { allBooks, allReaders } from './data';
+
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+const doublerOperator = () => map(value => value * 2);
+of(1, 2, 3, 4, 5)
+  .pipe(doublerOperator())
+  .subscribe(observer);
+
+// Creating New Operators with the Observable Constructor
+const grabAndLogClassics = (year, log) => subscription =>
+  new Observable(observer => {
+    subscription.subscribe(
+      book => {
+        if (book.publicationYear < year) {
+          observer.next(book);
+          if (log) {
+            console.log(book.title);
+          }
+        }
+      },
+      error => observer.error(error),
+      complete => observer.complete()
+    );
+  });
+
+// Creating New Operators from Existing Operators
+const grabClassics = year => filter(book => book.publicationYear < year);
+
+const grabAndLogClassicsWithPipe = (year, log) => subscription =>
+  subscription.pipe(
+    filter(book => book.publicationYear < year),
+    tap(book => (log ? console.log(book.title) : null))
+  );
+
+ajax
+  .getJSON('/api/books')
+  .pipe(
+    mergeAll(),
+    //grabClassics(1950),
+    //grabAndLogClassics(1930, false),
+    grabAndLogClassicsWithPipe(1950, false),
+    map(book => book.title)
+  )
+  .subscribe(observer);
+```
 
 ##### Using Subjects and Multicasted Observables
+```javascript
+import { Observable, of, from, fromEvent, concat, interval, throwError, Subject } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
+import { mergeMap, filter, tap, catchError, take, takeUntil, multicast, refCount, publish, share, publishLast, publishBehavior, publishReplay
+} from 'rxjs/operators';
+import { allBooks, allReaders } from './data';
+
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+// Observable -> Subject -> Observer1 and Observer2
+const subject = new Subject -> ();
+subject.subscribe(observer);
+subject.subscribe(observer);
+subject.next('Hello');
+
+const subscription = new Observable(observer => observer.next('Greetings'));
+subscription.subscribe(subject);
+//subscription.subscribe(observer);
+//subscription.subscribe(observer);
+
+// Using a Subject to Convert an Hot Observable
+// Observable -> Subject -> Observer1 and Observer2
+const source = interval(1000).pipe(take(4));
+source.subscribe(subject);
+
+subject.subscribe(observer);
+setTimeout(() => subject.subscribe(observer), 1000);
+setTimeout(() => subject.subscribe(observer), 2000);
+
+// Multicasting Operators - multicast and connect
+const source = interval(1000).pipe(
+  take(4),
+  multicast(new Subject()),
+);
+source.subscribe(observer);
+setTimeout(() => source.subscribe(observer), 1000);
+setTimeout(() => source.subscribe(observer), 2000);
+setTimeout(() => source.subscribe(observer), 4500);
+source.connect();
+
+// Multicasting Operators - multicast and refCount
+const source = interval(1000).pipe(
+  take(4),
+  multicast(new Subject()),
+  refCount()
+);
+source.subscribe(observer);
+setTimeout(() => source.subscribe(observer), 1000);
+setTimeout(() => source.subscribe(observer), 2000);
+setTimeout(() => source.subscribe(observer), 4500);
+
+// Multicasting Operators - publish and refCount
+const source = interval(1000).pipe(
+  take(4),
+  publish(),
+  refCount()
+);
+source.subscribe(observer);
+setTimeout(() => source.subscribe(observer), 1000);
+setTimeout(() => source.subscribe(observer), 2000);
+setTimeout(() => source.subscribe(observer), 4500);
+
+// Multicasting Operators - share (re-subscribe late observer)
+const source = interval(1000).pipe(
+  take(4),
+  share()
+);
+source.subscribe(observer);
+setTimeout(() => source.subscribe(observer), 1000);
+setTimeout(() => source.subscribe(observer), 2000);
+setTimeout(() => source.subscribe(observer), 4500);
+
+// AsyncSubject
+const source = interval(1000).pipe(
+  take(4),
+  publishLast(),
+  refCount()
+);
+source.subscribe(observer);
+setTimeout(() => source.subscribe(observer), 1000);
+setTimeout(() => source.subscribe(observer), 2000);
+setTimeout(() => source.subscribe(observer), 4500);
+
+// BehaviorSubject
+const source = interval(1000).pipe(
+  take(4),
+  publishBehavior(42),
+  refCount()
+);
+source.subscribe(observer);
+setTimeout(() => source.subscribe(observer), 1000);
+setTimeout(() => source.subscribe(observer), 2000);
+setTimeout(() => source.subscribe(observer), 4500);
+
+// ReplaySubject
+const source = interval(1000).pipe(
+  take(4),
+  publishReplay(),
+  refCount()
+);
+source.subscribe(observer);
+setTimeout(() => source.subscribe(observer), 1000);
+setTimeout(() => source.subscribe(observer), 2000);
+setTimeout(() => source.subscribe(observer), 4500);
+```
 
 ##### Controlling Execution with Schedulers
+```javascript
+import { Observable, of, from, fromEvent, concat, interval, throwError, Subject, asapScheduler, queueScheduler, asyncScheduler, merge
+} from 'rxjs';
+import { ajax } from 'rxjs/ajax';
+import { mergeMap, filter, tap, catchError, take, takeUntil, multicast, refCount, publish, share, publishLast, publishBehavior,   publishReplay, observeOn
+} from 'rxjs/operators';
+import { allBooks, allReaders } from './data';
+import { QueueScheduler } from 'rxjs/internal/scheduler/QueueScheduler';
+import { AsapScheduler } from 'rxjs/internal/scheduler/AsapScheduler';
+
+const observer = {
+  next: value => console.log(value),
+  error: error => console.log(error),
+  complete: () => console.log('completed')
+};
+
+// Using Schedulers with Observable
+// start -> queue -> stop (sync)
+// asap -> async (async)
+console.log('start');
+const queue = of('queue -> ', queueScheduler);
+const asap = of('asap', asapScheduler);
+const async = of('async', asyncScheduler);
+merge(async, asap, queue).subscribe(observer);
+
+// Applying a Scheduler with the observeOn
+from([1, 2, 3, 4], queueScheduler)
+  .pipe(
+    tap(x => console.log(x)),
+    observeOn(asyncScheduler),
+    tap(x => console.log(x * 2))
+  )
+  .subscribe(observer);
+
+console.log('stop');
+```
 
 ##### Testing Your RxJS Code
+```javascript
+import { TestScheduler } from 'rxjs/testing';
+import { expect } from 'chai';
+import { delay, take } from 'rxjs/operators';
 
+describe('RxBookTracker Tests', () => {
+  let scheduler;
+  beforeEach(() => {
+    scheduler = new TestScheduler((actual, expected) => {
+      expect(actual).deep.equal(expected);
+    });
+  });
+
+  it('produces a single value and completion message', () => {
+    scheduler.run(helpers => {
+      const source = helpers.cold('a|');
+      const expected = 'a|';
+      helpers.expectObservable(source).toBe(expected);
+    });
+  });
+
+  it('should delay the values produced', () => {
+    scheduler.run(helpers => {
+      const source = helpers.cold('-a-b-c-d|');
+      const expected = '------a-b-c-d|';
+      helpers.expectObservable(source.pipe(delay(5))).toBe(expected);
+    });
+  });
+
+  it('take correct number of values', () => {
+    scheduler.run(helpers => {
+      const source = helpers.cold('--a--b--c--d|');
+      const expected = '--a--b--(c|)';
+      const sub =      '^-------!';
+      helpers.expectObservable(source.pipe(take(3))).toBe(expected);
+      helpers.expectSubscriptions(source.subscriptions).toBe(sub);
+    });
+  });
+});
+```
