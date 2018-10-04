@@ -2,10 +2,13 @@ What is RxJS?
 > It’s a library that is very much like Lodash but it’s Lodash for Async events. So you can get events and treat them as sets of things, which allows you to filter, map, and combine them, so you can build very powerful apps with sets of events over time.
 
 Wwhat is the main difference between Promises and Observables?
-> The major difference between Promises and Observables is that Observables are a set of values, zero to an infinite number of values, where Promises are only one value. There are other differences, Observables are unicast whereas Promises are multicast, Observables can be synchronized and Promises are always asynchronized. So there’s a variety of differences. Also, Observables can be canceled and Promises cannot be canceled.
+* Observables are a set of values, zero to an infinite number of values, where Promises are only one value. 
+* Observables are unicast whereas Promises are multicast
+* Observables can be synchronized or asynchronized but Promises are always asynchronized. 
+* Observables can be canceled and Promises cannot be canceled.
 
 So tell us when to use each, when is the best case to use Promises and when it’s recommended to use Observables.
-The best time to use Promises is when you want an absolute guarantee that you will get a value. It’s called a Promise because you get one value in the future. So if you want a guarantee, Promises are great. Actually, there is an API right now on RxJS 5 that uses Promises where you can subscribe to Observables with “foreach()” and it returns a Promise that tells you whether or not it concluded successfully because it’s a non-cancelable way to subscribe to an Observable. Observables, on the other hand, are best used in situations when you need to compose a lot of different types of events: key ups or mouse events or if you’re doing a lot of live streaming, like Websockets. They are great for animations, they are great for a variety of general use.
+> The best time to use Promises is when you want an absolute guarantee that you will get a value. It’s called a Promise because you get one value in the future. So if you want a guarantee, Promises are great. Actually, there is an API right now on RxJS 5 that uses Promises where you can subscribe to Observables with “foreach()” and it returns a Promise that tells you whether or not it concluded successfully because it’s a non-cancelable way to subscribe to an Observable. Observables, on the other hand, are best used in situations when you need to compose a lot of different types of events: key ups or mouse events or if you’re doing a lot of live streaming, like Websockets. They are great for animations, they are great for a variety of general use.
 
 Anything that lets you stream values. Right?
 Yes. But not even just streams, you can do things that are one-time used, like AJAX, for example, where you want to be able to abort the underlying XHR so that you will be able to abort the AJAX requests. The Observables distinctly work well for that as opposed to Promises, because you can’t abort a Promise.
