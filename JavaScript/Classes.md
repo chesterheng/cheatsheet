@@ -1,8 +1,8 @@
 ##### ES6
 ```javascript
 class Human {
-  constructor() {
-    this.gender = 'male';
+  constructor(gender) {
+    this.gender = gender;
   }
   
   printGender() {
@@ -11,9 +11,9 @@ class Human {
 }
 
 class Person extends Human {
-  constructor() {
-    super();
-    this.name = 'Max';
+  constructor(name, gender) {
+    super(gender);
+    this.name = name;
   }
   
   printMyName() {
@@ -21,7 +21,7 @@ class Person extends Human {
   }
 }
 
-const person = new Person();
+const person = new Person('Max', 'Male');
 person.printMyName();
 person.printGender();
 ```
@@ -29,7 +29,7 @@ person.printGender();
 ##### ES7
 ```javascript
 class Human {
-  gender = 'male';
+  gender = arguments[1];
   
   printGender = () => {
     console.log(this.gender);
@@ -37,14 +37,14 @@ class Human {
 }
 
 class Person extends Human {
-  name = 'Max';
+  name = arguments[0];
  
   printMyName = () => {
     console.log(this.name);
   }
 }
 
-const person = new Person();
+const person = new Person('Max', 'Male');
 person.printMyName();
 person.printGender();
 ```
