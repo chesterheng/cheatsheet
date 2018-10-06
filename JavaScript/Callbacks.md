@@ -6,7 +6,7 @@ console.log('Hello, world!');
 
 // Challenge 1
 function addTwo(num) {
-	return num + 2;
+   return num + 2;
 }
 
 // To check if you've completed it, uncomment these console.logs!
