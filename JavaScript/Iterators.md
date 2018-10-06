@@ -1,4 +1,4 @@
-##### Promises contains set of completed tasks from http://csbin.io/iterators
+##### Iterators contains set of completed tasks from http://csbin.io/iterators
 
 ```javascript
 // Type JavaScript here and click "Run Code" or press Ctrl + s
