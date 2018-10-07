@@ -132,6 +132,8 @@ var userFunctionStore = {
   }
 }
 
+var adminFunctionStore = Object.create(userFunctionStore);
+
 function userFactory(name, score) {
   let user = Object.create(userFunctionStore);
   user.type = "User";
@@ -140,17 +142,26 @@ function userFactory(name, score) {
   return user;
 }
 
-var adminFunctionStore /* Put code here */ ;
-
 function adminFactory(name, score) {
-  // Put code here
+  let admin = Object.create(adminFunctionStore);
+  admin.type = "Admin";
+  return admin;
 }
 
 /* Put code here for a method called sharePublicMessage*/
+adminFunctionStore.sharePublicMessage = function () {
+  console.log('Welcome users!');
+};
 
 var adminFromFactory = adminFactory("Eva", 5);
 
 // /********* Uncomment these lines to test your work! *********/
 adminFromFactory.sayType() // -> Logs "I am a Admin"
 adminFromFactory.sharePublicMessage() // -> Logs "Welcome users!"
+
+var userFromFactory = userFactory("Eva", 5);
+
+// /********* Uncomment these lines to test your work! *********/
+userFromFactory.sayType() // -> Logs "I am a Admin"
+userFromFactory.sharePublicMessage() // -> Logs "Welcome users!"
 ```
