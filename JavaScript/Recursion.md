@@ -1,3 +1,4 @@
+```javascript
 // Type JavaScript here and click "Run Code" or press Ctrl + s
 console.log('Hello, world!');
 
@@ -83,3 +84,4 @@ function findInOrderedSet(arr, target) {
 // const nums = [1, 4, 6, 7, 9, 17, 45];
 // console.log(findInOrderedSet(nums, 4));  //-> true
 // console.log(findInOrderedSet(nums, 2));  //-> false
+```
