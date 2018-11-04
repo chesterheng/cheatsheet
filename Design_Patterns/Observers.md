@@ -6,7 +6,11 @@ class Subject {
     this.observers = [];
   }
   subscribe(observer) {
-    this.observers.push(observer);
+    if (observer.notify) {
+      this.observers.push(observer);
+    } else {
+      throw new Error('Invalid observer. notify implementation missing');
+    }
   }
   unsubscribe(observer) {
     const index = this.observers.indexOf(observer);
